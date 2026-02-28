@@ -6,25 +6,28 @@
     <title>Adschis Galerie</title>
     <style>
         :root {
+            /* Farbschema: Midnight & Slate */
             --bg-body: #10141d; 
             --bg-card: #1b2230; 
             --bg-header: #0d1017; 
             --accent: #00d2df;   
             --text-main: #e0e6ed;
             --text-muted: #94a3b8;
-            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --shadow: 0 10px 30px rgba(0,0,0,0.4);
             --transition: all 0.3s ease;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             text-align: center;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        /* --- HEADER --- */
         header {
             padding: 80px 20px;
             background: linear-gradient(135deg, var(--bg-header) 0%, var(--bg-body) 100%);
@@ -54,8 +57,8 @@
             padding: 40px 20px;
         }
 
-        /* --- ALBUM ÜBERSICHT --- */
-        .album-grid {
+        /* --- STARTSEITE: ALBEN GRID --- */
+        #album-view {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
@@ -68,18 +71,24 @@
             cursor: pointer;
             transition: var(--transition);
             box-shadow: var(--shadow);
-            border: 1px solid transparent;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .album-card:hover {
             transform: translateY(-10px);
             border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 210, 223, 0.15);
         }
 
         .album-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .album-card:hover img {
+            filter: brightness(1.1);
         }
 
         .album-info {
@@ -87,8 +96,13 @@
             text-align: left;
         }
 
-        /* --- FOTO GALERIE --- */
-        #photo-view { display: none; }
+        .album-info h3 { margin: 0; font-size: 1.4rem; color: #fff; }
+        .album-info p { margin: 5px 0 0; color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- GALERIE ANSICHT --- */
+        #photo-view { display: none; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .controls-bar {
             display: flex;
@@ -110,10 +124,7 @@
             transition: var(--transition);
         }
 
-        .back-btn:hover {
-            background: var(--accent);
-            color: var(--bg-body);
-        }
+        .back-btn:hover { background: var(--accent); color: var(--bg-body); }
 
         .gallery {
             display: grid;
@@ -128,9 +139,10 @@
             border-radius: 12px;
             cursor: zoom-in;
             transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .gallery img:hover { transform: scale(1.03); }
+        .gallery img:hover { transform: scale(1.03); box-shadow: var(--shadow); }
 
         /* --- LIGHTBOX & SLIDESHOW --- */
         #lightbox {
@@ -141,33 +153,65 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .lightbox-content { position: relative; max-width: 90%; max-height: 90%; }
-        #lightbox-img { max-width: 100%; max-height: 85vh; border-radius: 5px; box-shadow: 0 0 40px #000; }
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox-img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 0 50px #000;
+            user-select: none;
+        }
 
         .slide-btn {
             position: absolute;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
+            transition: var(--transition);
+            z-index: 1010;
             top: 50%;
             transform: translateY(-50%);
         }
-        .slide-btn:hover { background: var(--accent); }
-        .prev-btn { left: -70px; }
-        .next-btn { right: -70px; }
-        .close-btn { position: absolute; top: -50px; right: 0; color: white; background: none; border: none; font-size: 2rem; cursor: pointer; }
 
-        @media (max-width: 900px) {
+        .slide-btn:hover { background: var(--accent); color: var(--bg-body); }
+        .prev-btn { left: -80px; }
+        .next-btn { right: -80px; }
+
+        .close-btn {
+            position: absolute;
+            top: -60px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        .close-btn:hover { opacity: 1; }
+
+        @media (max-width: 1000px) {
             .prev-btn { left: 10px; }
             .next-btn { right: 10px; }
-            .slide-btn { background: rgba(0,0,0,0.5); }
+            .slide-btn { width: 45px; height: 45px; font-size: 1.2rem; background: rgba(0,0,0,0.5); }
+            .close-btn { top: 10px; right: 10px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; }
         }
     </style>
 </head>
@@ -182,20 +226,20 @@
 
 <div class="container">
     
-    <div id="album-view" class="album-grid">
+    <div id="album-view">
         <div class="album-card" onclick="showGallery('wien')">
             <img src="bild1.jpg.jpg" alt="Wien">
             <div class="album-info">
                 <h3>Wien im Frühling</h3>
-                <p>Alle 18 Aufnahmen meiner ersten Serie.</p>
+                <p>Eine Sammlung von 18 Momentaufnahmen der Stadt.</p>
             </div>
         </div>
 
         <div class="album-card" onclick="showGallery('natur')">
             <img src="bild3.jpg" alt="Natur">
             <div class="album-info">
-                <h3>Natur</h3>
-                <p>Kommende Aufnahmen aus der Wildnis.</p>
+                <h3>Natur & Landschaften</h3>
+                <p>Momente der Ruhe außerhalb der Stadt.</p>
             </div>
         </div>
 
@@ -203,32 +247,32 @@
             <img src="bild5.jpg" alt="Architektur">
             <div class="album-info">
                 <h3>Architektur</h3>
-                <p>Linien, Formen und Gebäude.</p>
+                <p>Linien, Kontraste und moderne Bauwerke.</p>
             </div>
         </div>
     </div>
 
     <div id="photo-view">
         <div class="controls-bar">
-            <button class="back-btn" onclick="showAlben()">← Zurück</button>
+            <button class="back-btn" onclick="showAlben()">← Zurück zur Auswahl</button>
             <h2 id="gallery-title">Galerie</h2>
-            <div style="width: 80px;"></div>
-        </div>
+            <div style="width: 100px;"></div> </div>
         <div class="gallery" id="gallery-content"></div>
     </div>
 
 </div>
 
-<div id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">✕ Schließen</button>
+<div id="lightbox" onclick="closeLightboxOutside(event)">
+    <button class="close-btn" onclick="closeLightbox()">✕ Schließen (ESC)</button>
     <div class="lightbox-content">
-        <button class="slide-btn prev-btn" onclick="changeSlide(-1)">❮</button>
-        <button class="slide-btn next-btn" onclick="changeSlide(1)">❯</button>
-        <img id="lightbox-img" src="">
+        <button class="slide-btn prev-btn" onclick="event.stopPropagation(); changeSlide(-1)">❮</button>
+        <button class="slide-btn next-btn" onclick="event.stopPropagation(); changeSlide(1)">❯</button>
+        <img id="lightbox-img" src="" alt="Zoom">
     </div>
 </div>
 
 <script>
+    // --- DATEN ---
     const data = {
         'wien': {
             title: 'Wien im Frühling',
@@ -240,39 +284,36 @@
                 'bild17.jpg', 'bild18.jpg'
             ]
         },
-        'natur': {
-            title: 'Natur & Landschaften',
-            images: [] // Hier kannst du später Bilder einfügen
-        },
-        'architektur': {
-            title: 'Architektur',
-            images: [] // Hier kannst du später Bilder einfügen
-        }
+        'natur': { title: 'Natur & Landschaften', images: [] },
+        'architektur': { title: 'Architektur', images: [] }
     };
 
     let currentAlbumId = null;
     let currentIndex = 0;
 
+    // --- NAVIGATION ---
     function showGallery(id) {
         currentAlbumId = id;
         const album = data[id];
         const content = document.getElementById('gallery-content');
         document.getElementById('gallery-title').innerText = album.title;
+        
         content.innerHTML = '';
-
         if(album.images.length === 0) {
-            content.innerHTML = '<p style="grid-column: 1/-1; padding: 50px;">Hier folgen bald neue Fotos!</p>';
+            content.innerHTML = '<p style="grid-column: 1/-1; padding: 100px; color: var(--text-muted);">Hier folgen bald neue Fotos!</p>';
         }
 
         album.images.forEach((src, index) => {
             const img = document.createElement('img');
             img.src = src;
+            img.loading = "lazy"; // Performance-Boost
             img.onclick = () => openLightbox(index);
             content.appendChild(img);
         });
 
         document.getElementById('album-view').style.display = 'none';
         document.getElementById('photo-view').style.display = 'block';
+        window.scrollTo(0,0);
     }
 
     function showAlben() {
@@ -280,31 +321,47 @@
         document.getElementById('photo-view').style.display = 'none';
     }
 
+    // --- LIGHTBOX LOGIK ---
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+
     function openLightbox(index) {
         currentIndex = index;
-        document.getElementById('lightbox').style.display = 'flex';
+        lb.style.display = 'flex';
+        setTimeout(() => lb.style.opacity = "1", 10);
         updateImage();
+        document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
-        document.getElementById('lightbox').style.display = 'none';
+        lb.style.opacity = "0";
+        setTimeout(() => {
+            lb.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    function closeLightboxOutside(e) {
+        if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-content')) {
+            closeLightbox();
+        }
     }
 
     function changeSlide(n) {
-        currentIndex += n;
         const imgs = data[currentAlbumId].images;
+        currentIndex += n;
         if (currentIndex >= imgs.length) currentIndex = 0;
         if (currentIndex < 0) currentIndex = imgs.length - 1;
         updateImage();
     }
 
     function updateImage() {
-        document.getElementById('lightbox-img').src = data[currentAlbumId].images[currentIndex];
+        lbImg.src = data[currentAlbumId].images[currentIndex];
     }
 
-    // Keyboard support
+    // Tasten: Pfeile & ESC
     document.addEventListener('keydown', (e) => {
-        if (document.getElementById('lightbox').style.display === 'flex') {
+        if (lb.style.display === 'flex') {
             if (e.key === 'ArrowRight') changeSlide(1);
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'Escape') closeLightbox();
