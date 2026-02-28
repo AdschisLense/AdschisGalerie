@@ -6,11 +6,10 @@
     <title>Adschis Galerie</title>
     <style>
         :root {
-            /* Neuer Farbraum: Weichere Dunkeltöne */
-            --bg-body: #10141d; /* Sehr dunkles Blau-Grau */
-            --bg-card: #1b2230; /* Etwas helleres Blau-Grau für Container */
-            --bg-header: #0d1017; /* Fast Schwarz für Header */
-            --accent: #00d2df;   /* Leuchtendes Türkis für Highlights */
+            --bg-body: #10141d; 
+            --bg-card: #1b2230; 
+            --bg-header: #0d1017; 
+            --accent: #00d2df;   
             --text-main: #e0e6ed;
             --text-muted: #94a3b8;
             --shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -26,7 +25,6 @@
             line-height: 1.6;
         }
 
-        /* --- HEADER & TITEL --- */
         header {
             padding: 80px 20px;
             background: linear-gradient(135deg, var(--bg-header) 0%, var(--bg-body) 100%);
@@ -45,7 +43,8 @@
 
         header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-style: italic;
             margin-top: 10px;
         }
 
@@ -55,7 +54,7 @@
             padding: 40px 20px;
         }
 
-        /* --- ALBUM ÜBERSICHT (STARTSEITE) --- */
+        /* --- ALBUM ÜBERSICHT --- */
         .album-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -73,20 +72,14 @@
         }
 
         .album-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(0, 210, 223, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translateY(-10px);
+            border-color: var(--accent);
         }
 
         .album-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .album-card:hover img {
-            filter: brightness(1.1);
         }
 
         .album-info {
@@ -94,22 +87,8 @@
             text-align: left;
         }
 
-        .album-info h3 {
-            margin: 0;
-            font-size: 1.4rem;
-            color: #fff;
-        }
-
-        .album-info p {
-            margin: 5px 0 0;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* --- FOTO GALERIE ANSICHT --- */
-        #photo-view {
-            display: none; /* Standardmäßig versteckt */
-        }
+        /* --- FOTO GALERIE --- */
+        #photo-view { display: none; }
 
         .controls-bar {
             display: flex;
@@ -129,17 +108,11 @@
             cursor: pointer;
             font-weight: bold;
             transition: var(--transition);
-            font-size: 1rem;
         }
 
         .back-btn:hover {
             background: var(--accent);
             color: var(--bg-body);
-        }
-
-        .gallery-title-area h2 {
-            margin: 0;
-            font-size: 2rem;
         }
 
         .gallery {
@@ -150,106 +123,51 @@
 
         .gallery img {
             width: 100%;
-            aspect-ratio: 3/2; /* Schickes Querformat */
+            aspect-ratio: 3/2;
             object-fit: cover;
             border-radius: 12px;
             cursor: zoom-in;
             transition: var(--transition);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        .gallery img:hover {
-            transform: scale(1.03);
-            box-shadow: var(--shadow);
-        }
+        .gallery img:hover { transform: scale(1.03); }
 
-        /* --- MODERN LIGHTBOX MIT SLIDESHOW --- */
+        /* --- LIGHTBOX & SLIDESHOW --- */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(8, 10, 15, 0.97); /* Extrem dunkles Blau, fast deckend */
+            background: rgba(8, 10, 15, 0.98);
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
-        #lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
+        .lightbox-content { position: relative; max-width: 90%; max-height: 90%; }
+        #lightbox-img { max-width: 100%; max-height: 85vh; border-radius: 5px; box-shadow: 0 0 40px #000; }
 
-        .lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #lightbox-img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            user-select: none; /* Verhindert blaues Markieren beim Klicken */
-        }
-
-        /* Slideshow Pfeile */
         .slide-btn {
             position: absolute;
             background: rgba(255,255,255,0.1);
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1010;
             top: 50%;
             transform: translateY(-50%);
         }
+        .slide-btn:hover { background: var(--accent); }
+        .prev-btn { left: -70px; }
+        .next-btn { right: -70px; }
+        .close-btn { position: absolute; top: -50px; right: 0; color: white; background: none; border: none; font-size: 2rem; cursor: pointer; }
 
-        .slide-btn:hover {
-            background: var(--accent);
-            color: var(--bg-body);
-        }
-
-        .prev-btn { left: -80px; }
-        .next-btn { right: -80px; }
-
-        /* Schließen Button */
-        .close-btn {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 3rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .close-btn:hover {
-            color: #fff;
-            transform: rotate(90deg);
-        }
-
-        /* Responsive Anpassungen für Pfeile */
-        @media (max-width: 1100px) {
-            .prev-btn { left: 20px; }
-            .next-btn { right: 20px; }
-            .close-btn { right: 10px; top: 10px; font-size: 2.5rem; }
-            .slide-btn { width: 50px; height: 50px; font-size: 1.5rem; background: rgba(0,0,0,0.5); }
+        @media (max-width: 900px) {
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
+            .slide-btn { background: rgba(0,0,0,0.5); }
         }
     </style>
 </head>
@@ -258,170 +176,138 @@
 <header>
     <div class="container">
         <h1>Adschis Galerie</h1>
-        <p>Visuelle Geschichten, festgehalten in Serien</p>
+        <p>trying to share the beauty of the world</p>
     </div>
 </header>
 
 <div class="container">
     
     <div id="album-view" class="album-grid">
-        
+        <div class="album-card" onclick="showGallery('wien')">
+            <img src="bild1.jpg.jpg" alt="Wien">
+            <div class="album-info">
+                <h3>Wien im Frühling</h3>
+                <p>Alle 18 Aufnahmen meiner ersten Serie.</p>
+            </div>
+        </div>
+
         <div class="album-card" onclick="showGallery('natur')">
-            <img src="bild1.jpg.jpg" alt="Natur Vorschau">
+            <img src="bild3.jpg" alt="Natur">
             <div class="album-info">
-                <h3>Natur & Landschaften</h3>
-                <p>Momente der Ruhe und weite Horizonte.</p>
+                <h3>Natur</h3>
+                <p>Kommende Aufnahmen aus der Wildnis.</p>
             </div>
         </div>
 
-        <div class="album-card" onclick="showGallery('stadt')">
-            <img src="bild5.jpg" alt="Stadt Vorschau">
+        <div class="album-card" onclick="showGallery('architektur')">
+            <img src="bild5.jpg" alt="Architektur">
             <div class="album-info">
-                <h3>Urbanes Leben</h3>
-                <p>Architektur, Linien und das Chaos der Stadt.</p>
+                <h3>Architektur</h3>
+                <p>Linien, Formen und Gebäude.</p>
             </div>
         </div>
-
-        <div class="album-card" onclick="showGallery('portraits')">
-            <img src="bild9.jpg" alt="Portraits Vorschau">
-            <div class="album-info">
-                <h3>Menschen</h3>
-                <p>Ehrliche Augenblicke und Charaktere.</p>
-            </div>
-        </div>
-        
     </div>
 
     <div id="photo-view">
         <div class="controls-bar">
-            <button class="back-btn" onclick="showAlben()">← Übersicht</button>
-            <div class="gallery-title-area">
-                <h2 id="gallery-title">Galerie</h2>
-            </div>
-            <div style="width: 100px;"></div> </div>
-        
-        <div class="gallery" id="gallery-content">
-            </div>
+            <button class="back-btn" onclick="showAlben()">← Zurück</button>
+            <h2 id="gallery-title">Galerie</h2>
+            <div style="width: 80px;"></div>
+        </div>
+        <div class="gallery" id="gallery-content"></div>
     </div>
 
 </div>
 
 <div id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">&times;</button>
-    
+    <button class="close-btn" onclick="closeLightbox()">✕ Schließen</button>
     <div class="lightbox-content">
-        <button class="slide-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
-        <button class="slide-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
-        
-        <img id="lightbox-img" src="" alt="Zoom Ansicht">
+        <button class="slide-btn prev-btn" onclick="changeSlide(-1)">❮</button>
+        <button class="slide-btn next-btn" onclick="changeSlide(1)">❯</button>
+        <img id="lightbox-img" src="">
     </div>
 </div>
 
 <script>
-    // --- DATENSTRUKTUR ---
-    // Hier definierst du deine Alben und die dazugehörigen Bilder.
     const data = {
+        'wien': {
+            title: 'Wien im Frühling',
+            images: [
+                'bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg', 
+                'bild5.jpg', 'bild6.jpg', 'bild7.jpg', 'bild8.jpg', 
+                'bild9.jpg', 'bild10.jpg', 'bild11.jpg', 'bild12.jpg', 
+                'bild13.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 
+                'bild17.jpg', 'bild18.jpg'
+            ]
+        },
         'natur': {
             title: 'Natur & Landschaften',
-            images: ['bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg']
+            images: [] // Hier kannst du später Bilder einfügen
         },
-        'stadt': {
-            title: 'Urbanes Leben',
-            images: ['bild5.jpg', 'bild6.jpg', 'bild7.jpg', 'bild8.jpg']
-        },
-        'portraits': {
-            title: 'Menschen & Portraits',
-            images: ['bild9.jpg', 'bild10.jpg', 'bild11.jpg']
+        'architektur': {
+            title: 'Architektur',
+            images: [] // Hier kannst du später Bilder einfügen
         }
     };
 
-    // --- STATE MANAGEMENT ---
     let currentAlbumId = null;
-    let currentImageIndex = 0;
+    let currentIndex = 0;
 
-    // --- NAVIGATION ---
-
-    function showGallery(albumId) {
-        currentAlbumId = albumId;
-        const album = data[albumId];
+    function showGallery(id) {
+        currentAlbumId = id;
+        const album = data[id];
         const content = document.getElementById('gallery-content');
-        const title = document.getElementById('gallery-title');
-        
-        // Titel setzen
-        title.innerText = album.title;
-        
-        // Galerie leeren und Bilder neu aufbauen
+        document.getElementById('gallery-title').innerText = album.title;
         content.innerHTML = '';
+
+        if(album.images.length === 0) {
+            content.innerHTML = '<p style="grid-column: 1/-1; padding: 50px;">Hier folgen bald neue Fotos!</p>';
+        }
+
         album.images.forEach((src, index) => {
             const img = document.createElement('img');
             img.src = src;
-            img.alt = `Bild ${index + 1} aus ${album.title}`;
-            // Klick öffnet Lightbox am richtigen Index
-            img.onclick = () => openLightbox(index); 
+            img.onclick = () => openLightbox(index);
             content.appendChild(img);
         });
 
-        // Ansicht wechseln
         document.getElementById('album-view').style.display = 'none';
         document.getElementById('photo-view').style.display = 'block';
-        window.scrollTo(0, 0); // Nach oben scrollen
     }
 
     function showAlben() {
         document.getElementById('album-view').style.display = 'grid';
         document.getElementById('photo-view').style.display = 'none';
-        currentAlbumId = null;
     }
 
-    // --- LIGHTBOX & SLIDESHOW LOGIK ---
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
     function openLightbox(index) {
-        if (!currentAlbumId) return;
-        
-        currentImageIndex = index;
-        updateLightboxImage();
-        
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Scrollen der Seite verhindern
+        currentIndex = index;
+        document.getElementById('lightbox').style.display = 'flex';
+        updateImage();
     }
 
     function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Scrollen wieder erlauben
+        document.getElementById('lightbox').style.display = 'none';
     }
 
-    function updateLightboxImage() {
-        const images = data[currentAlbumId].images;
-        // Sicherheitscheck, falls Index außerhalb des Bereichs
-        if (currentImageIndex >= images.length) currentImageIndex = 0;
-        if (currentImageIndex < 0) currentImageIndex = images.length - 1;
-        
-        lightboxImg.src = images[currentImageIndex];
+    function changeSlide(n) {
+        currentIndex += n;
+        const imgs = data[currentAlbumId].images;
+        if (currentIndex >= imgs.length) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = imgs.length - 1;
+        updateImage();
     }
 
-    // Richtung: 1 für Vor, -1 für Zurück
-    function changeSlide(direction) {
-        currentImageIndex += direction;
-        updateLightboxImage();
+    function updateImage() {
+        document.getElementById('lightbox-img').src = data[currentAlbumId].images[currentIndex];
     }
 
-    // --- KEYBOARD STEUERUNG ---
-    // Erlaubt Pfeiltasten und ESC
-    document.addEventListener('keydown', function(e) {
-        if (!lightbox.classList.contains('active')) return;
-        
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowRight") changeSlide(1);
-        if (e.key === "ArrowLeft") changeSlide(-1);
-    });
-
-    // Schließen, wenn man auf den dunklen Hintergrund klickt (aber nicht aufs Bild)
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === this || e.target.classList.contains('lightbox-content')) {
-            closeLightbox();
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('lightbox').style.display === 'flex') {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'Escape') closeLightbox();
         }
     });
 </script>
