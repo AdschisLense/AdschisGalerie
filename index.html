@@ -15,7 +15,7 @@
 
         body {
             margin: 0;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #0a0c10;
             color: var(--text-main);
             overflow-x: hidden;
@@ -28,206 +28,109 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: radial-gradient(circle at 50% 50%, #1a202c 0%, #0a0c10 100%);
-            overflow: hidden;
         }
 
         .blob {
             position: absolute;
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
             background: var(--accent);
-            filter: blur(120px);
+            filter: blur(130px);
             border-radius: 50%;
-            opacity: 0.15;
-            animation: move 20s infinite alternate;
+            opacity: 0.12;
+            animation: move 25s infinite alternate;
         }
 
         @keyframes move {
-            from { transform: translate(-10%, -10%) scale(1); }
-            to { transform: translate(20%, 20%) scale(1.2); }
+            from { transform: translate(-20%, -20%) rotate(0deg); }
+            to { transform: translate(30%, 30%) rotate(360deg); }
         }
 
-        /* --- LAYOUT --- */
-        header {
-            padding: 100px 20px;
-            text-align: center;
-        }
+        header { padding: 80px 20px; text-align: center; }
+        h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; }
+        header p { color: var(--text-muted); font-style: italic; margin-top: 10px; }
 
-        h1 {
-            font-size: 3.5rem;
-            margin: 0;
-            letter-spacing: -2px;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
 
-        header p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-top: 15px;
-            letter-spacing: 1px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 100px;
-        }
-
-        /* --- ALBEN CARDS --- */
-        #album-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
+        /* --- ALBEN --- */
+        #album-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .album-card {
-            position: relative;
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
         }
+        .album-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .album-card img { width: 100%; height: 280px; object-fit: cover; }
+        .album-info { padding: 25px; text-align: left; }
 
-        .album-card:hover {
-            transform: translateY(-12px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .album-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
-
-        .album-info {
-            padding: 25px;
-        }
-
-        .album-info h3 { margin: 0; font-size: 1.5rem; }
-        .album-info p { margin: 8px 0 0; color: var(--text-muted); }
-
-        /* --- GALERIE ANSICHT --- */
+        /* --- GALERIE --- */
         #photo-view { display: none; }
-
-        .controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 40px;
-        }
-
-        .back-btn {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .back-btn { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 12px 25px; border-radius: 50px; cursor: pointer; transition: 0.3s; }
         .back-btn:hover { background: var(--accent); color: #000; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; }
+        .gallery img:hover { transform: scale(1.03); }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .gallery img:hover { transform: scale(1.02); filter: brightness(1.1); }
-
-        /* --- LIGHTBOX MIT ZOOM --- */
+        /* --- STUFENLOSER ZOOM LIGHTBOX --- */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.95);
             z-index: 2000;
+            overflow: hidden;
+            touch-action: none;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            cursor: crosshair;
         }
 
-        .lightbox-content {
-            position: relative;
-            width: 90vw;
-            height: 90vh;
+        #lightbox-container {
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Wichtig für den Zoom */
+            cursor: grab;
         }
+
+        #lightbox-container:active { cursor: grabbing; }
 
         #lightbox-img {
-            max-width: 100%;
-            max-height: 100%;
-            transition: transform 0.3s ease-out;
-            cursor: zoom-in;
-            border-radius: 4px;
-        }
-
-        /* Zoom-Klasse wird per JS getoggelt */
-        #lightbox-img.zoomed {
-            transform: scale(2.5);
-            cursor: zoom-out;
+            max-width: 90%;
+            max-height: 90%;
+            user-select: none;
+            transition: transform 0.1s ease-out; /* Kurze Transition für flüssiges Scrollen */
+            will-change: transform;
         }
 
         .nav-btn {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            padding: 20px;
-            cursor: pointer;
-            font-size: 2rem;
-            border-radius: 50%;
-            transition: 0.3s;
-            z-index: 2100;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.05);
+            border: none; color: white; padding: 20px;
+            cursor: pointer; border-radius: 50%; z-index: 2100;
         }
-
         .nav-btn:hover { background: var(--accent); color: #000; }
         .prev { left: 20px; }
         .next { right: 20px; }
-
         .close-x {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-            background: rgba(255,255,255,0.1);
-            width: 50px; height: 50px;
+            position: absolute; top: 25px; right: 25px;
+            background: rgba(255,255,255,0.1); width: 45px; height: 45px;
             display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            z-index: 2100;
+            border-radius: 50%; cursor: pointer; z-index: 2100;
         }
     </style>
 </head>
 <body>
 
     <div class="bg-animation">
-        <div class="blob" style="top: 10%; left: 10%;"></div>
-        <div class="blob" style="bottom: 10%; right: 10%; animation-delay: -5s; background: #7928ca;"></div>
+        <div class="blob" style="top: -10%; left: -10%;"></div>
+        <div class="blob" style="bottom: -10%; right: -10%; background: #7928ca; animation-delay: -5s;"></div>
     </div>
 
     <header>
@@ -236,7 +139,6 @@
     </header>
 
     <div class="container">
-        
         <div id="album-view">
             <div class="album-card" onclick="showGallery('wien')">
                 <img src="bild1.jpg.jpg" alt="Wien">
@@ -247,29 +149,26 @@
             </div>
             <div class="album-card" onclick="showGallery('natur')">
                 <img src="bild3.jpg" alt="Natur">
-                <div class="album-info">
-                    <h3>Natur</h3>
-                    <p>Coming Soon</p>
-                </div>
+                <div class="album-info"><h3>Natur</h3><p>Coming Soon</p></div>
             </div>
         </div>
 
         <div id="photo-view">
             <div class="controls">
-                <button class="back-btn" onclick="showAlben()">← Zurück</button>
+                <button class="back-btn" onclick="showAlben()">← Übersicht</button>
                 <h2 id="gallery-title"></h2>
             </div>
             <div class="gallery" id="gallery-content"></div>
         </div>
     </div>
 
-    <div id="lightbox" onclick="handleLightboxClick(event)">
+    <div id="lightbox">
         <span class="close-x" onclick="closeLightbox()">✕</span>
-        <button class="nav-btn prev" onclick="changeSlide(-1, event)">❮</button>
-        <button class="nav-btn next" onclick="changeSlide(1, event)">❯</button>
+        <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
+        <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
         
-        <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="" onmousemove="zoomMove(event)">
+        <div id="lightbox-container" onwheel="handleWheel(event)">
+            <img id="lightbox-img" src="" alt="Zoomable Image">
         </div>
     </div>
 
@@ -284,25 +183,31 @@
 
         let currentAlbum = null;
         let currentIndex = 0;
-        let isZoomed = false;
+        
+        // Zoom & Pan State
+        let scale = 1;
+        let pointX = 0;
+        let pointY = 0;
+        let start = { x: 0, y: 0 };
+        let isDragging = false;
+
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const lbContainer = document.getElementById('lightbox-container');
 
         function showGallery(id) {
             currentAlbum = id;
-            const album = data[id];
-            document.getElementById('gallery-title').innerText = album.title;
+            document.getElementById('gallery-title').innerText = data[id].title;
             const content = document.getElementById('gallery-content');
             content.innerHTML = '';
-            
-            album.images.forEach((src, idx) => {
+            data[id].images.forEach((src, idx) => {
                 const img = document.createElement('img');
                 img.src = src;
                 img.onclick = () => openLightbox(idx);
                 content.appendChild(img);
             });
-
             document.getElementById('album-view').style.display = 'none';
             document.getElementById('photo-view').style.display = 'block';
-            window.scrollTo(0,0);
         }
 
         function showAlben() {
@@ -312,76 +217,87 @@
 
         function openLightbox(idx) {
             currentIndex = idx;
-            const lb = document.getElementById('lightbox');
+            resetZoom();
             lb.style.display = 'flex';
-            setTimeout(() => lb.style.opacity = '1', 10);
             updateImage();
         }
 
         function closeLightbox() {
-            const lb = document.getElementById('lightbox');
-            lb.style.opacity = '0';
-            resetZoom();
-            setTimeout(() => lb.style.display = 'none', 300);
+            lb.style.display = 'none';
         }
 
         function updateImage() {
-            const img = document.getElementById('lightbox-img');
-            img.src = data[currentAlbum].images[currentIndex];
+            lbImg.src = data[currentAlbum].images[currentIndex];
             resetZoom();
         }
 
-        function changeSlide(dir, e) {
-            if(e) e.stopPropagation();
+        function changeSlide(dir) {
             const imgs = data[currentAlbum].images;
             currentIndex = (currentIndex + dir + imgs.length) % imgs.length;
             updateImage();
         }
 
-        // --- ZOOM LOGIK ---
-        const lbImg = document.getElementById('lightbox-img');
+        // --- STUFENLOSER ZOOM (MAUSRAD) ---
+        function handleWheel(e) {
+            e.preventDefault();
+            const xs = (e.clientX - pointX) / scale;
+            const ys = (e.clientY - pointY) / scale;
+            const delta = -e.deltaY;
+            
+            (delta > 0) ? scale *= 1.1 : scale /= 1.1;
+            
+            // Limit Zoom
+            if (scale < 1) scale = 1;
+            if (scale > 5) scale = 5;
 
-        function handleLightboxClick(e) {
-            // Wenn man auf das Bild klickt: Zoom an/aus
-            if (e.target.id === 'lightbox-img') {
-                isZoomed = !isZoomed;
-                lbImg.classList.toggle('zoomed');
-                if (!isZoomed) lbImg.style.transformOrigin = 'center';
-            } 
-            // Wenn man auf den Hintergrund klickt: Schließen
-            else if (e.target.id === 'lightbox' || e.target.className === 'lightbox-content') {
-                closeLightbox();
-            }
+            pointX = e.clientX - xs * scale;
+            pointY = e.clientY - ys * scale;
+
+            // Wenn wir wieder bei 1x Zoom sind, Bild zentrieren
+            if (scale === 1) { pointX = 0; pointY = 0; }
+            
+            applyTransform();
         }
 
-        function zoomMove(e) {
-            if (!isZoomed) return;
-            const { offsetX, offsetY, target } = e;
-            const { clientWidth, clientHeight } = target;
-            
-            const x = (offsetX / clientWidth) * 100;
-            const y = (offsetY / clientHeight) * 100;
-            
-            target.style.transformOrigin = `${x}% ${y}%`;
+        // --- DRAG & PAN (ZIEHEN) ---
+        lbContainer.onmousedown = function(e) {
+            if (scale === 1) return; // Nur ziehen, wenn gezoomt
+            e.preventDefault();
+            start = { x: e.clientX - pointX, y: e.clientY - pointY };
+            isDragging = true;
+        };
+
+        window.onmousemove = function(e) {
+            if (!isDragging) return;
+            pointX = e.clientX - start.x;
+            pointY = e.clientY - start.y;
+            applyTransform();
+        };
+
+        window.onmouseup = function() { isDragging = false; };
+
+        function applyTransform() {
+            lbImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
         }
 
         function resetZoom() {
-            isZoomed = false;
-            lbImg.classList.remove('zoomed');
-            lbImg.style.transformOrigin = 'center';
+            scale = 1; pointX = 0; pointY = 0;
+            applyTransform();
         }
+
+        // Hintergrundklick schließt nur, wenn Zoom 1 ist
+        lbContainer.onclick = function(e) {
+            if (e.target === lbContainer && scale === 1) closeLightbox();
+        };
 
         // Keyboard
         document.addEventListener('keydown', (e) => {
-            if (document.getElementById('lightbox').style.display === 'flex') {
+            if (lb.style.display === 'flex') {
                 if (e.key === 'ArrowRight') changeSlide(1);
                 if (e.key === 'ArrowLeft') changeSlide(-1);
                 if (e.key === 'Escape') closeLightbox();
             }
         });
     </script>
-</body>
-</html>
-
 </body>
 </html>
