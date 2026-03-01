@@ -76,7 +76,7 @@
         .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; }
         .gallery img:hover { transform: scale(1.03); }
 
-        /* --- STUFENLOSER ZOOM LIGHTBOX --- */
+        /* --- LIGHTBOX --- */
         #lightbox {
             display: none;
             position: fixed;
@@ -84,30 +84,31 @@
             background: rgba(0,0,0,0.95);
             z-index: 2000;
             overflow: hidden;
-            touch-action: none;
             justify-content: center;
             align-items: center;
+            touch-action: none;
         }
 
         #lightbox-container {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
             cursor: grab;
         }
-
         #lightbox-container:active { cursor: grabbing; }
 
         #lightbox-img {
             max-width: 90%;
             max-height: 90%;
             user-select: none;
-            transition: transform 0.1s ease-out; /* Kurze Transition für flüssiges Scrollen */
             will-change: transform;
+            transition: transform 0.1s ease-out;
         }
 
+        /* Navigation Buttons */
         .nav-btn {
             position: absolute;
             top: 50%; transform: translateY(-50%);
@@ -167,8 +168,8 @@
         <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
         <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
         
-        <div id="lightbox-container" onwheel="handleWheel(event)">
-            <img id="lightbox-img" src="" alt="Zoomable Image">
+        <div id="lightbox-container">
+            <img id="lightbox-img" src="" alt="Gallery Image">
         </div>
     </div>
 
@@ -184,10 +185,9 @@
         let currentAlbum = null;
         let currentIndex = 0;
         
-        // Zoom & Pan State
+        // Zoom & Pan Variablen
         let scale = 1;
-        let pointX = 0;
-        let pointY = 0;
+        let pos = { x: 0, y: 0 };
         let start = { x: 0, y: 0 };
         let isDragging = false;
 
@@ -217,13 +217,13 @@
 
         function openLightbox(idx) {
             currentIndex = idx;
-            resetZoom();
             lb.style.display = 'flex';
             updateImage();
         }
 
         function closeLightbox() {
             lb.style.display = 'none';
+            resetZoom();
         }
 
         function updateImage() {
@@ -237,60 +237,61 @@
             updateImage();
         }
 
-        // --- STUFENLOSER ZOOM (MAUSRAD) ---
-        function handleWheel(e) {
-            e.preventDefault();
-            const xs = (e.clientX - pointX) / scale;
-            const ys = (e.clientY - pointY) / scale;
-            const delta = -e.deltaY;
-            
-            (delta > 0) ? scale *= 1.1 : scale /= 1.1;
-            
-            // Limit Zoom
-            if (scale < 1) scale = 1;
-            if (scale > 5) scale = 5;
-
-            pointX = e.clientX - xs * scale;
-            pointY = e.clientY - ys * scale;
-
-            // Wenn wir wieder bei 1x Zoom sind, Bild zentrieren
-            if (scale === 1) { pointX = 0; pointY = 0; }
-            
+        function resetZoom() {
+            scale = 1;
+            pos = { x: 0, y: 0 };
             applyTransform();
         }
 
-        // --- DRAG & PAN (ZIEHEN) ---
-        lbContainer.onmousedown = function(e) {
-            if (scale === 1) return; // Nur ziehen, wenn gezoomt
+        function applyTransform() {
+            lbImg.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale})`;
+        }
+
+        // --- VERBESSERTE ZOOM LOGIK (Cursor-zentriert) ---
+        lbContainer.onwheel = function(e) {
             e.preventDefault();
-            start = { x: e.clientX - pointX, y: e.clientY - pointY };
+            const delta = -e.deltaY;
+            const factor = delta > 0 ? 1.1 : 0.9;
+            
+            const newScale = scale * factor;
+            if (newScale < 1 || newScale > 6) return;
+
+            // Berechne Cursor-Position relativ zum Bild
+            const rect = lbImg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Der Trick für zentrierten Zoom
+            pos.x -= (mouseX / scale) * (newScale - scale);
+            pos.y -= (mouseY / scale) * (newScale - scale);
+
+            scale = newScale;
+            applyTransform();
+        };
+
+        // --- PANNING (ZIEHEN) ---
+        lbContainer.onmousedown = function(e) {
+            if (e.target.classList.contains('nav-btn')) return;
             isDragging = true;
+            start = { x: e.clientX - pos.x, y: e.clientY - pos.y };
         };
 
         window.onmousemove = function(e) {
             if (!isDragging) return;
-            pointX = e.clientX - start.x;
-            pointY = e.clientY - start.y;
+            pos.x = e.clientX - start.x;
+            pos.y = e.clientY - start.y;
             applyTransform();
         };
 
-        window.onmouseup = function() { isDragging = false; };
+        window.onmouseup = function() {
+            isDragging = false;
+        };
 
-        function applyTransform() {
-            lbImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-        }
-
-        function resetZoom() {
-            scale = 1; pointX = 0; pointY = 0;
-            applyTransform();
-        }
-
-        // Hintergrundklick schließt nur, wenn Zoom 1 ist
+        // Klick auf Hintergrund schließt nur, wenn nicht gezoomt
         lbContainer.onclick = function(e) {
-            if (e.target === lbContainer && scale === 1) closeLightbox();
+            if (e.target === lbContainer && scale <= 1.1) closeLightbox();
         };
 
-        // Keyboard
         document.addEventListener('keydown', (e) => {
             if (lb.style.display === 'flex') {
                 if (e.key === 'ArrowRight') changeSlide(1);
