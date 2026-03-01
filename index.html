@@ -18,7 +18,7 @@
             font-family: 'Inter', sans-serif;
             background: #0a0c10;
             color: var(--text-main);
-            overflow-x: hidden;
+            overflow: hidden; /* Verhindert Scrollen der Hauptseite */
             min-height: 100vh;
         }
 
@@ -32,8 +32,7 @@
 
         .blob {
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 600px; height: 600px;
             background: var(--accent);
             filter: blur(130px);
             border-radius: 50%;
@@ -42,15 +41,15 @@
         }
 
         @keyframes move {
-            from { transform: translate(-20%, -20%) rotate(0deg); }
-            to { transform: translate(30%, 30%) rotate(360deg); }
+            from { transform: translate(-20%, -20%); }
+            to { transform: translate(30%, 30%); }
         }
 
-        header { padding: 80px 20px; text-align: center; }
+        header { padding: 60px 20px; text-align: center; }
         h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; }
         header p { color: var(--text-muted); font-style: italic; margin-top: 10px; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; overflow-y: auto; height: calc(100vh - 200px); }
 
         /* --- ALBEN --- */
         #album-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -61,7 +60,7 @@
             border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: 0.3s;
         }
         .album-card:hover { transform: translateY(-10px); border-color: var(--accent); }
         .album-card img { width: 100%; height: 280px; object-fit: cover; }
@@ -70,53 +69,47 @@
         /* --- GALERIE --- */
         #photo-view { display: none; }
         .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .back-btn { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 12px 25px; border-radius: 50px; cursor: pointer; transition: 0.3s; }
-        .back-btn:hover { background: var(--accent); color: #000; }
+        .back-btn { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 12px 25px; border-radius: 50px; cursor: pointer; }
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
         .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; }
-        .gallery img:hover { transform: scale(1.03); }
 
-        /* --- LIGHTBOX --- */
+        /* --- LIGHTBOX (ZOOM FIX) --- */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.97);
             z-index: 2000;
             overflow: hidden;
             justify-content: center;
             align-items: center;
-            touch-action: none;
         }
 
         #lightbox-container {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             cursor: grab;
         }
-        #lightbox-container:active { cursor: grabbing; }
 
         #lightbox-img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 85%;
+            max-height: 85%;
             user-select: none;
-            will-change: transform;
             transition: transform 0.1s ease-out;
+            transform-origin: center center; /* Wird per JS überschrieben */
         }
 
-        /* Navigation Buttons */
         .nav-btn {
             position: absolute;
             top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.1);
             border: none; color: white; padding: 20px;
             cursor: pointer; border-radius: 50%; z-index: 2100;
         }
-        .nav-btn:hover { background: var(--accent); color: #000; }
         .prev { left: 20px; }
         .next { right: 20px; }
         .close-x {
@@ -167,9 +160,8 @@
         <span class="close-x" onclick="closeLightbox()">✕</span>
         <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
         <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
-        
-        <div id="lightbox-container">
-            <img id="lightbox-img" src="" alt="Gallery Image">
+        <div id="lightbox-container" onwheel="zoom(event)">
+            <img id="lightbox-img" src="" alt="Zoomable">
         </div>
     </div>
 
@@ -179,21 +171,15 @@
                 title: 'Wien im Frühling',
                 images: ['bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg', 'bild5.jpg', 'bild6.jpg', 'bild7.jpg', 'bild8.jpg', 'bild9.jpg', 'bild10.jpg', 'bild11.jpg', 'bild12.jpg', 'bild13.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 'bild17.jpg', 'bild18.jpg']
             },
-            'natur': { title: 'Natur & Landschaften', images: [] }
+            'natur': { title: 'Natur', images: [] }
         };
 
         let currentAlbum = null;
         let currentIndex = 0;
-        
-        // Zoom & Pan Variablen
         let scale = 1;
-        let pos = { x: 0, y: 0 };
-        let start = { x: 0, y: 0 };
-        let isDragging = false;
 
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
-        const lbContainer = document.getElementById('lightbox-container');
 
         function showGallery(id) {
             currentAlbum = id;
@@ -239,59 +225,41 @@
 
         function resetZoom() {
             scale = 1;
-            pos = { x: 0, y: 0 };
-            applyTransform();
+            lbImg.style.transform = `scale(${scale})`;
+            lbImg.style.transformOrigin = `center center`;
         }
 
-        function applyTransform() {
-            lbImg.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale})`;
-        }
-
-        // --- VERBESSERTE ZOOM LOGIK (Cursor-zentriert) ---
-        lbContainer.onwheel = function(e) {
+        // --- DER KORREKTE ZOOM ---
+        function zoom(e) {
             e.preventDefault();
-            const delta = -e.deltaY;
-            const factor = delta > 0 ? 1.1 : 0.9;
             
-            const newScale = scale * factor;
-            if (newScale < 1 || newScale > 6) return;
-
-            // Berechne Cursor-Position relativ zum Bild
+            // Cursor Position relativ zum Bild berechnen
             const rect = lbImg.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-            // Der Trick für zentrierten Zoom
-            pos.x -= (mouseX / scale) * (newScale - scale);
-            pos.y -= (mouseY / scale) * (newScale - scale);
+            // Zoom-Faktor berechnen
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            const newScale = scale * delta;
 
-            scale = newScale;
-            applyTransform();
+            // GRENZEN: Nicht kleiner als 1 (Original), nicht größer als 5
+            if (newScale >= 1 && newScale <= 5) {
+                scale = newScale;
+                // Setze den Punkt, an dem gezoomt wird, auf die Mausposition
+                lbImg.style.transformOrigin = `${x}% ${y}%`;
+                lbImg.style.transform = `scale(${scale})`;
+            } else if (newScale < 1) {
+                // Wenn versucht wird, kleiner als 1 zu zoomen -> Reset auf Original
+                resetZoom();
+            }
+        }
+
+        // Schließen beim Klick auf den Hintergrund
+        document.getElementById('lightbox-container').onclick = function(e) {
+            if (e.target === this && scale === 1) closeLightbox();
         };
 
-        // --- PANNING (ZIEHEN) ---
-        lbContainer.onmousedown = function(e) {
-            if (e.target.classList.contains('nav-btn')) return;
-            isDragging = true;
-            start = { x: e.clientX - pos.x, y: e.clientY - pos.y };
-        };
-
-        window.onmousemove = function(e) {
-            if (!isDragging) return;
-            pos.x = e.clientX - start.x;
-            pos.y = e.clientY - start.y;
-            applyTransform();
-        };
-
-        window.onmouseup = function() {
-            isDragging = false;
-        };
-
-        // Klick auf Hintergrund schließt nur, wenn nicht gezoomt
-        lbContainer.onclick = function(e) {
-            if (e.target === lbContainer && scale <= 1.1) closeLightbox();
-        };
-
+        // Keyboard
         document.addEventListener('keydown', (e) => {
             if (lb.style.display === 'flex') {
                 if (e.key === 'ArrowRight') changeSlide(1);
@@ -300,5 +268,7 @@
             }
         });
     </script>
+</body>
+</html>
 </body>
 </html>
