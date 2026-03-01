@@ -6,125 +6,133 @@
     <title>Adschis Galerie</title>
     <style>
         :root {
-            /* Farbschema: Midnight & Slate */
-            --bg-body: #10141d; 
-            --bg-card: #1b2230; 
-            --bg-header: #0d1017; 
-            --accent: #00d2df;   
-            --text-main: #e0e6ed;
-            --text-muted: #94a3b8;
-            --shadow: 0 10px 30px rgba(0,0,0,0.4);
-            --transition: all 0.3s ease;
+            --accent: #00d2df;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-body);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0a0c10;
             color: var(--text-main);
-            text-align: center;
-            line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* --- HEADER --- */
+        /* --- ANIMIERTER HINTERGRUND --- */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a202c 0%, #0a0c10 100%);
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            filter: blur(120px);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%) scale(1); }
+            to { transform: translate(20%, 20%) scale(1.2); }
+        }
+
+        /* --- LAYOUT --- */
         header {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, var(--bg-header) 0%, var(--bg-body) 100%);
-            border-bottom: 1px solid #2d3748;
+            padding: 100px 20px;
+            text-align: center;
         }
 
         h1 {
+            font-size: 3.5rem;
             margin: 0;
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
         header p {
-            color: var(--text-muted);
             font-size: 1.2rem;
-            font-style: italic;
-            margin-top: 10px;
+            color: var(--text-muted);
+            margin-top: 15px;
+            letter-spacing: 1px;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 20px 100px;
         }
 
-        /* --- STARTSEITE: ALBEN GRID --- */
+        /* --- ALBEN CARDS --- */
         #album-view {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .album-card {
-            background: var(--bg-card);
-            border-radius: 20px;
+            position: relative;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .album-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
             border-color: var(--accent);
-            box-shadow: 0 15px 40px rgba(0, 210, 223, 0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .album-card img {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .album-card:hover img {
-            filter: brightness(1.1);
         }
 
         .album-info {
-            padding: 20px;
-            text-align: left;
+            padding: 25px;
         }
 
-        .album-info h3 { margin: 0; font-size: 1.4rem; color: #fff; }
-        .album-info p { margin: 5px 0 0; color: var(--text-muted); font-size: 0.95rem; }
+        .album-info h3 { margin: 0; font-size: 1.5rem; }
+        .album-info p { margin: 8px 0 0; color: var(--text-muted); }
 
         /* --- GALERIE ANSICHT --- */
-        #photo-view { display: none; animation: fadeIn 0.5s ease; }
+        #photo-view { display: none; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .controls-bar {
+        .controls {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #2d3748;
+            justify-content: space-between;
+            margin-bottom: 40px;
         }
 
         .back-btn {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            padding: 10px 25px;
-            border-radius: 30px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .back-btn:hover { background: var(--accent); color: var(--bg-body); }
+        .back-btn:hover { background: var(--accent); color: #000; }
 
         .gallery {
             display: grid;
@@ -134,240 +142,246 @@
 
         .gallery img {
             width: 100%;
-            aspect-ratio: 3/2;
+            aspect-ratio: 1;
             object-fit: cover;
-            border-radius: 12px;
-            cursor: zoom-in;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .gallery img:hover { transform: scale(1.03); box-shadow: var(--shadow); }
+        .gallery img:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-        /* --- LIGHTBOX & SLIDESHOW --- */
+        /* --- LIGHTBOX MIT ZOOM --- */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(8, 10, 15, 0.98);
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s;
+            cursor: crosshair;
         }
 
         .lightbox-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            width: 90vw;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Wichtig für den Zoom */
         }
 
         #lightbox-img {
             max-width: 100%;
-            max-height: 85vh;
-            border-radius: 8px;
-            box-shadow: 0 0 50px #000;
-            user-select: none;
+            max-height: 100%;
+            transition: transform 0.3s ease-out;
+            cursor: zoom-in;
+            border-radius: 4px;
         }
 
-        .slide-btn {
+        /* Zoom-Klasse wird per JS getoggelt */
+        #lightbox-img.zoomed {
+            transform: scale(2.5);
+            cursor: zoom-out;
+        }
+
+        .nav-btn {
             position: absolute;
-            background: rgba(255,255,255,0.05);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 1010;
             top: 50%;
             transform: translateY(-50%);
-        }
-
-        .slide-btn:hover { background: var(--accent); color: var(--bg-body); }
-        .prev-btn { left: -80px; }
-        .next-btn { right: -80px; }
-
-        .close-btn {
-            position: absolute;
-            top: -60px;
-            right: 0;
-            background: none;
+            background: rgba(255,255,255,0.1);
             border: none;
-            color: #fff;
-            font-size: 1.2rem;
+            color: white;
+            padding: 20px;
             cursor: pointer;
-            opacity: 0.7;
+            font-size: 2rem;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 2100;
         }
-        .close-btn:hover { opacity: 1; }
 
-        @media (max-width: 1000px) {
-            .prev-btn { left: 10px; }
-            .next-btn { right: 10px; }
-            .slide-btn { width: 45px; height: 45px; font-size: 1.2rem; background: rgba(0,0,0,0.5); }
-            .close-btn { top: 10px; right: 10px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; }
+        .nav-btn:hover { background: var(--accent); color: #000; }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        .close-x {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            z-index: 2100;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container">
+    <div class="bg-animation">
+        <div class="blob" style="top: 10%; left: 10%;"></div>
+        <div class="blob" style="bottom: 10%; right: 10%; animation-delay: -5s; background: #7928ca;"></div>
+    </div>
+
+    <header>
         <h1>Adschis Galerie</h1>
-        <p>Trying to share the beauty of the world</p>
-    </div>
-</header>
+        <p>trying to share the beauty of the world</p>
+    </header>
 
-<div class="container">
-    
-    <div id="album-view">
-        <div class="album-card" onclick="showGallery('wien')">
-            <img src="bild1.jpg.jpg" alt="Wien">
-            <div class="album-info">
-                <h3>Wien im Frühling</h3>
-                <p>Eine Sammlung von 18 Momentaufnahmen der Stadt.</p>
-            </div>
-        </div>
-
-        <div class="album-card" onclick="showGallery('natur')">
-            <img src="bild3.jpg" alt="Natur">
-            <div class="album-info">
-                <h3>Natur & Landschaften</h3>
-                <p>Momente der Ruhe außerhalb der Stadt.</p>
-            </div>
-        </div>
-
-        <div class="album-card" onclick="showGallery('architektur')">
-            <img src="bild5.jpg" alt="Architektur">
-            <div class="album-info">
-                <h3>Architektur</h3>
-                <p>Linien, Kontraste und moderne Bauwerke.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="photo-view">
-        <div class="controls-bar">
-            <button class="back-btn" onclick="showAlben()">← Zurück zur Auswahl</button>
-            <h2 id="gallery-title">Galerie</h2>
-            <div style="width: 100px;"></div> </div>
-        <div class="gallery" id="gallery-content"></div>
-    </div>
-
-</div>
-
-<div id="lightbox" onclick="closeLightboxOutside(event)">
-    <button class="close-btn" onclick="closeLightbox()">✕ Schließen (ESC)</button>
-    <div class="lightbox-content">
-        <button class="slide-btn prev-btn" onclick="event.stopPropagation(); changeSlide(-1)">❮</button>
-        <button class="slide-btn next-btn" onclick="event.stopPropagation(); changeSlide(1)">❯</button>
-        <img id="lightbox-img" src="" alt="Zoom">
-    </div>
-</div>
-
-<script>
-    // --- DATEN ---
-    const data = {
-        'wien': {
-            title: 'Wien im Frühling',
-            images: [
-                'bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg', 
-                'bild5.jpg', 'bild6.jpg', 'bild7.jpg', 'bild8.jpg', 
-                'bild9.jpg', 'bild10.jpg', 'bild11.jpg', 'bild12.jpg', 
-                'bild13.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 
-                'bild17.jpg', 'bild18.jpg', 'bild19.jpg', 'bild20.jpg'
-            ]
-        },
-        'natur': { title: 'Natur & Landschaften', images: [] },
-        'architektur': { title: 'Architektur', images: [] }
-    };
-
-    let currentAlbumId = null;
-    let currentIndex = 0;
-
-    // --- NAVIGATION ---
-    function showGallery(id) {
-        currentAlbumId = id;
-        const album = data[id];
-        const content = document.getElementById('gallery-content');
-        document.getElementById('gallery-title').innerText = album.title;
+    <div class="container">
         
-        content.innerHTML = '';
-        if(album.images.length === 0) {
-            content.innerHTML = '<p style="grid-column: 1/-1; padding: 100px; color: var(--text-muted);">Hier folgen bald neue Fotos!</p>';
+        <div id="album-view">
+            <div class="album-card" onclick="showGallery('wien')">
+                <img src="bild1.jpg.jpg" alt="Wien">
+                <div class="album-info">
+                    <h3>Wien im Frühling</h3>
+                    <p>18 Momente einer blühenden Stadt.</p>
+                </div>
+            </div>
+            <div class="album-card" onclick="showGallery('natur')">
+                <img src="bild3.jpg" alt="Natur">
+                <div class="album-info">
+                    <h3>Natur</h3>
+                    <p>Coming Soon</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="photo-view">
+            <div class="controls">
+                <button class="back-btn" onclick="showAlben()">← Zurück</button>
+                <h2 id="gallery-title"></h2>
+            </div>
+            <div class="gallery" id="gallery-content"></div>
+        </div>
+    </div>
+
+    <div id="lightbox" onclick="handleLightboxClick(event)">
+        <span class="close-x" onclick="closeLightbox()">✕</span>
+        <button class="nav-btn prev" onclick="changeSlide(-1, event)">❮</button>
+        <button class="nav-btn next" onclick="changeSlide(1, event)">❯</button>
+        
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="" onmousemove="zoomMove(event)">
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            'wien': {
+                title: 'Wien im Frühling',
+                images: ['bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg', 'bild5.jpg', 'bild6.jpg', 'bild7.jpg', 'bild8.jpg', 'bild9.jpg', 'bild10.jpg', 'bild11.jpg', 'bild12.jpg', 'bild13.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 'bild17.jpg', 'bild18.jpg']
+            },
+            'natur': { title: 'Natur & Landschaften', images: [] }
+        };
+
+        let currentAlbum = null;
+        let currentIndex = 0;
+        let isZoomed = false;
+
+        function showGallery(id) {
+            currentAlbum = id;
+            const album = data[id];
+            document.getElementById('gallery-title').innerText = album.title;
+            const content = document.getElementById('gallery-content');
+            content.innerHTML = '';
+            
+            album.images.forEach((src, idx) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.onclick = () => openLightbox(idx);
+                content.appendChild(img);
+            });
+
+            document.getElementById('album-view').style.display = 'none';
+            document.getElementById('photo-view').style.display = 'block';
+            window.scrollTo(0,0);
         }
 
-        album.images.forEach((src, index) => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.loading = "lazy"; // Performance-Boost
-            img.onclick = () => openLightbox(index);
-            content.appendChild(img);
+        function showAlben() {
+            document.getElementById('album-view').style.display = 'grid';
+            document.getElementById('photo-view').style.display = 'none';
+        }
+
+        function openLightbox(idx) {
+            currentIndex = idx;
+            const lb = document.getElementById('lightbox');
+            lb.style.display = 'flex';
+            setTimeout(() => lb.style.opacity = '1', 10);
+            updateImage();
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.style.opacity = '0';
+            resetZoom();
+            setTimeout(() => lb.style.display = 'none', 300);
+        }
+
+        function updateImage() {
+            const img = document.getElementById('lightbox-img');
+            img.src = data[currentAlbum].images[currentIndex];
+            resetZoom();
+        }
+
+        function changeSlide(dir, e) {
+            if(e) e.stopPropagation();
+            const imgs = data[currentAlbum].images;
+            currentIndex = (currentIndex + dir + imgs.length) % imgs.length;
+            updateImage();
+        }
+
+        // --- ZOOM LOGIK ---
+        const lbImg = document.getElementById('lightbox-img');
+
+        function handleLightboxClick(e) {
+            // Wenn man auf das Bild klickt: Zoom an/aus
+            if (e.target.id === 'lightbox-img') {
+                isZoomed = !isZoomed;
+                lbImg.classList.toggle('zoomed');
+                if (!isZoomed) lbImg.style.transformOrigin = 'center';
+            } 
+            // Wenn man auf den Hintergrund klickt: Schließen
+            else if (e.target.id === 'lightbox' || e.target.className === 'lightbox-content') {
+                closeLightbox();
+            }
+        }
+
+        function zoomMove(e) {
+            if (!isZoomed) return;
+            const { offsetX, offsetY, target } = e;
+            const { clientWidth, clientHeight } = target;
+            
+            const x = (offsetX / clientWidth) * 100;
+            const y = (offsetY / clientHeight) * 100;
+            
+            target.style.transformOrigin = `${x}% ${y}%`;
+        }
+
+        function resetZoom() {
+            isZoomed = false;
+            lbImg.classList.remove('zoomed');
+            lbImg.style.transformOrigin = 'center';
+        }
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').style.display === 'flex') {
+                if (e.key === 'ArrowRight') changeSlide(1);
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'Escape') closeLightbox();
+            }
         });
-
-        document.getElementById('album-view').style.display = 'none';
-        document.getElementById('photo-view').style.display = 'block';
-        window.scrollTo(0,0);
-    }
-
-    function showAlben() {
-        document.getElementById('album-view').style.display = 'grid';
-        document.getElementById('photo-view').style.display = 'none';
-    }
-
-    // --- LIGHTBOX LOGIK ---
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-
-    function openLightbox(index) {
-        currentIndex = index;
-        lb.style.display = 'flex';
-        setTimeout(() => lb.style.opacity = "1", 10);
-        updateImage();
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-        lb.style.opacity = "0";
-        setTimeout(() => {
-            lb.style.display = 'none';
-            document.body.style.overflow = '';
-        }, 300);
-    }
-
-    function closeLightboxOutside(e) {
-        if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-content')) {
-            closeLightbox();
-        }
-    }
-
-    function changeSlide(n) {
-        const imgs = data[currentAlbumId].images;
-        currentIndex += n;
-        if (currentIndex >= imgs.length) currentIndex = 0;
-        if (currentIndex < 0) currentIndex = imgs.length - 1;
-        updateImage();
-    }
-
-    function updateImage() {
-        lbImg.src = data[currentAlbumId].images[currentIndex];
-    }
-
-    // Tasten: Pfeile & ESC
-    document.addEventListener('keydown', (e) => {
-        if (lb.style.display === 'flex') {
-            if (e.key === 'ArrowRight') changeSlide(1);
-            if (e.key === 'ArrowLeft') changeSlide(-1);
-            if (e.key === 'Escape') closeLightbox();
-        }
-    });
-</script>
+    </script>
+</body>
+</html>
 
 </body>
 </html>
