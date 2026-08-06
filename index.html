@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adschis Galerie | Brasilien 2018</title>
+    <style>
+        :root {
+            --accent: #00d2df;
+            --bg-dark: #050608;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #1a202c 0%, #0a0c10 100%);
+        }
+        .blob {
+            position: absolute; width: 800px; height: 800px;
+            background: var(--accent); filter: blur(150px);
+            border-radius: 50%; opacity: 0.1;
+            animation: moveBlobs 30s infinite alternate;
+        }
+        @keyframes moveBlobs {
+            from { transform: translate(-30%, -20%); }
+            to { transform: translate(40%, 30%); }
+        }
+
+        .back-btn {
+            position: fixed; top: 30px; left: 30px;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); color: white;
+            padding: 12px 24px; border-radius: 50px;
+            cursor: pointer; z-index: 1000; font-weight: 600;
+            display: none; transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--accent); color: #000; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 100px; }
+        header { padding: 100px 20px; text-align: center; }
+        h1 { font-size: clamp(2.5rem, 10vw, 5rem); margin: 0; font-weight: 900; text-transform: uppercase; letter-spacing: -3px; }
+        
+        #album-view-section { display: block; }
+        #grid-gallery-section { display: none; padding-top: 100px; }
+        #brasilien-story-section { display: none; }
+
+        .album-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .album-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 30px; overflow: hidden; cursor: pointer;
+            transition: var(--transition); position: relative;
+        }
+        .album-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .album-card img { width: 100%; height: 400px; object-fit: cover; }
+        .album-info { padding: 30px; position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); box-sizing: border-box; }
+
+        .grid-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .grid-wrapper img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; }
+
+        .story-hero {
+            height: 100vh; background: linear-gradient(rgba(0,0,0,0.2), #050608), url('bild35.jpg') center/cover fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .story-hero h2 { font-size: clamp(3rem, 12vw, 8rem); margin: 0; font-weight: 900; letter-spacing: -5px; }
+
+        .story-row {
+            display: flex; align-items: center; justify-content: center;
+            padding: 120px 5vw; gap: 80px; max-width: 1600px; margin: 0 auto;
+        }
+        .story-row.even { flex-direction: row; }
+        .story-row.odd { flex-direction: row-reverse; }
+
+        .story-text { flex: 1; }
+        .story-text h3 { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
+        .story-text p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); }
+
+        .story-images { flex: 1.2; display: grid; gap: 15px; }
+        .story-images img { 
+            width: 100%; border-radius: 20px; cursor: pointer; transition: 0.5s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .story-images img:hover { transform: scale(1.03); }
+
+        .images-3 { grid-template-columns: 1fr 1fr; }
+        .images-3 img:nth-child(1) { grid-column: span 2; }
+        .images-4 { grid-template-columns: 1fr 1fr; }
+
+        .new-gallery-section {
+            margin: 40px 0 80px;
+        }
+
+        .gallery-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .gallery-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .gallery-images img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+            transition: var(--transition);
+        }
+
+        .gallery-images img:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: var(--accent);
+        }
+
+        .gallery-text-card {
+            background: linear-gradient(135deg, rgba(0, 210, 223, 0.16), rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100%;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin: 0 0 12px;
+        }
+
+        .gallery-text-card h3 {
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            margin: 0 0 16px;
+        }
+
+        .gallery-text-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin: 0 0 20px;
+        }
+
+        .gallery-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gallery-meta span {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1000px) {
+            .story-row { flex-direction: column !important; text-align: center; }
+        }
+
+        @media (max-width: 900px) {
+            .gallery-layout { grid-template-columns: 1fr; }
+        }
+
+        #lightbox {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+            z-index: 3000; justify-content: center; align-items: center;
+        }
+        #lightbox-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: grab; }
+        #lightbox-img { max-width: 90%; max-height: 90%; transition: transform 0.1s; }
+        .close-x { position: absolute; top: 30px; right: 30px; font-size: 30px; cursor: pointer; z-index: 3100; color: white; }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 3100;
+            display: none;
+        }
+        #prev-arrow { left: 20px; }
+        #next-arrow { right: 20px; }
+    </style>
+</head>
+<body>
+
+    <button id="global-back-btn" class="back-btn" onclick="showHomeScreen()">← Übersicht</button>
+
+    <div class="bg-animation">
+        <div class="blob" style="top: -10%; left: -10%;"></div>
+        <div class="blob" style="bottom: -10%; right: -10%; background: #7928ca;"></div>
+    </div>
+
+    <div id="album-view-section">
+        <header>
+            <h1>Adschis Galerie</h1>
+            <p>Travel & Nature Photography</p>
+        </header>
+        <div class="container">
+            <section class="new-gallery-section">
+                <div class="gallery-layout">
+                    <div class="gallery-images">
+                        <img src="IMG-20181215-WA0012.jpg" alt="Gardasee-Radreise Bild 1">
+                        <img src="20181218_182125.jpg" alt="Gardasee-Radreise Bild 2">
+                        <img src="20181214_174430.jpg" alt="Gardasee-Radreise Bild 3">
+                        <img src="20181213_185625.jpg" alt="Gardasee-Radreise Bild 4">
+                    </div>
+                    <div class="gallery-text-card">
+                        <p class="eyebrow">Neue Galerie</p>
+                        <h3>Radreise zum Gardasee 2026</h3>
+                        <p>Unsere Reise startete in Linz und führte uns über Frankenmarkt, Salzburg, Oberndorf in Tirol und Innsbruck bis nach Südtirol. Unterwegs begegneten uns Burgen, Flüsse, Apfelplantagen und viele andere Radreisende. Ein kleiner Zwischenfall auf dem Brenner – die Rettung eines Vogels auf der Straße – blieb besonders im Gedächtnis. Nach mehreren Nächten in der Natur kamen wir schließlich in Riva del Garda an und verbrachten dort zwei Tage in einem Airbnb. Von dort aus folgten wir die westliche Seite des Gardasees, bis wir in San Felice del Benaco und später in Malcesine ankamen. Die Strecke war oft wunderschön, manchmal fordernd, aber immer voller Atmosphäre.</p>
+                        <div class="gallery-meta">
+                            <span>4 Bilder</span>
+                            <span>Textfeld</span>
+                            <span>2026</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="album-grid">
+                <div class="album-card" onclick="openGrid('wien')">
+                    <img src="bild1.jpg.jpg" alt="">
+                    <div class="album-info"><h3>Wien</h3><p>Frühling in der Stadt</p></div>
+                </div>
+                <div class="album-card" onclick="openGrid('natur')">
+                    <img src="bild33.jpg" alt="">
+                    <div class="album-info"><h3>Natur</h3><p>Stille Momente</p></div>
+                </div>
+                <div class="album-card" onclick="openGrid('trip')">
+                    <img src="bild101.jpg" alt="">
+                    <div class="album-info"><h3>Europe Trip 2018</h3><p>Amsterdam → Madrid</p></div>
+                </div>
+                <div class="album-card" onclick="openBrasilien()">
+                    <img src="bild35.jpg" alt="">
+                    <div class="album-info"><h3>Brasilien 2018</h3><p>Eine Reise-Story</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="grid-gallery-section" class="container">
+        <h2 id="gallery-title" style="text-align: center; font-size: 3rem; margin-bottom: 50px;"></h2>
+        <div id="gallery-content" class="grid-wrapper"></div>
+    </div>
+
+    <div id="brasilien-story-section">
+        <div class="story-hero">
+            <h2>Brasilien 2018</h2>
+            <p>VON RIO BIS SÃO PAULO</p>
+        </div>
+
+        <div class="story-row even">
+            <div class="story-images images-3">
+                <img src="bild35.jpg" onclick="openLBStory(this.src)">
+                <img src="bild36.jpg" onclick="openLBStory(this.src)">
+                <img src="bild39.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Der Aufbruch</h3>
+                <p>Nach einem anstrengenden 12-Stunden-Flug bin ich endlich im lebhaften Rio de Janeiro gelandet. Die erste Fahrt mit dem Taxi zum Hostel war wie ein Sprung in eine andere Welt. Kaum angekommen, gab es kein Halten mehr – ich musste sofort raus und mir diese faszinierende Stadt anschauen.</p>
+            </div>
+        </div>
+
+        <div class="story-row odd">
+            <div class="story-images images-4">
+                <img src="bild37.jpg" onclick="openLBStory(this.src)">
+                <img src="bild66.jpg" onclick="openLBStory(this.src)">
+                <img src="bild67.jpg" onclick="openLBStory(this.src)">
+                <img src="bild68.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Großstadtdschungel</h3>
+                <p>Rio ist mehr als nur Stadt – es ist pure Energie. Ich habe unzählige Wanderungen unternommen, um die besten Aussichtspunkte zu finden. Von den steilen Pfaden aus hat man einen unvergleichlichen Blick auf das Häusermeer, das sich zwischen die grünen Berge schmiegt.</p>
+            </div>
+        </div>
+
+        <div class="story-row even">
+            <div class="story-images images-4">
+                <img src="bild38.jpg" onclick="openLBStory(this.src)">
+                <img src="bild65.jpg" onclick="openLBStory(this.src)">
+                <img src="bild69.jpg" onclick="openLBStory(this.src)">
+                <img src="bild70.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Salz auf der Haut</h3>
+                <p>Was Brasilien für mich so besonders gemacht hat, waren die Menschen. Überall traf ich auf liebenswerte Personen, die mich mit einer Herzlichkeit willkommen geheißen haben, die ich so selten erlebt habe. Man fühlt sich sofort als Teil der Gemeinschaft.</p>
+            </div>
+        </div>
+
+        <div class="story-row odd">
+            <div class="story-images images-4">
+                <img src="bild40.jpg" onclick="openLBStory(this.src)">
+                <img src="bild41.jpg" onclick="openLBStory(this.src)">
+                <img src="bild71.jpg" onclick="openLBStory(this.src)">
+                <img src="bild72.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>In das Grüne</h3>
+                <p>Die Natur Brasiliens ist überwältigend. Überall gibt es exotische Pflanzen und versteckte Winkel zu entdecken, die wie aus einer anderen Zeit wirken. Die botanische Vielfalt ist einfach gigantisch.</p>
+            </div>
+        </div>
+
+        <div class="story-row even">
+            <div class="story-images images-4">
+                <img src="bild58.jpg" onclick="openLBStory(this.src)">
+                <img src="bild59.jpg" onclick="openLBStory(this.src)">
+                <img src="bild60.jpg" onclick="openLBStory(this.src)">
+                <img src="bild61.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Begegnungen</h3>
+                <p>Im Hostel lernte ich einen Reisenden aus Frankreich kennen. Wir haben uns sofort verstanden und beschlossen, einen Teil der Reise gemeinsam zu verbringen. Zusammen haben wir noch viele weitere Wanderungen durch die Wildnis Rios bestritten.</p>
+            </div>
+        </div>
+
+        <div class="story-row odd">
+            <div class="story-images images-3">
+                <img src="bild62.jpg" onclick="openLBStory(this.src)">
+                <img src="bild63.jpg" onclick="openLBStory(this.src)">
+                <img src="bild64.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Lichtspiele</h3>
+                <p>Es gibt nichts Schöneres, als den Tag am Strand ausklingen zu lassen.</p>
+            </div>
+        </div>
+
+        <div class="story-row even">
+            <div class="story-images images-4">
+                <img src="bild42.jpg" onclick="openLBStory(this.src)">
+                <img src="bild43.jpg" onclick="openLBStory(this.src)">
+                <img src="bild44.jpg" onclick="openLBStory(this.src)">
+                <img src="bild73.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Weitblick & Route</h3>
+                <p>Meine Reise führte mich weiter in den Süden. Die Route war : Von Rio de Janeiro ging es Richtung São Paulo, mit unvergesslichen Zwischenstopps in Ilhabela und Maresias, wo die Küste besonders wild und schön ist.</p>
+            </div>
+        </div>
+
+        <div class="story-row odd">
+            <div class="story-images images-4">
+                <img src="bild45.jpg" onclick="openLBStory(this.src)">
+                <img src="bild46.jpg" onclick="openLBStory(this.src)">
+                <img src="bild74.jpg" onclick="openLBStory(this.src)">
+                <img src="bild75.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Beton-Dschungel São Paulo</h3>
+                <p>São Paulo ist schier endlos. Als ich die Aussicht über die Stadt genoss, wurde mir erst klar, wie riesig dieses urbane Zentrum wirklich ist. Ein Meer aus Hochhäusern, so weit das Auge reicht.</p>
+            </div>
+        </div>
+
+        <div class="story-row even">
+            <div class="story-images images-4">
+                <img src="bild47.jpg" onclick="openLBStory(this.src)">
+                <img src="bild48.jpg" onclick="openLBStory(this.src)">
+                <img src="bild76.jpg" onclick="openLBStory(this.src)">
+                <img src="bild77.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Inselleben in Ilhabela</h3>
+                <p>In Ilhabela stand Entspannung auf dem Programm. Wir haben ein Boot gemietet, ein Barbecue an Bord gemacht und viele kleine, unberührte Inseln besichtigt. Das kristallklare Wasser war ein Traum.</p>
+            </div>
+        </div>
+
+        <div class="story-row odd">
+            <div class="story-images images-4">
+                <img src="bild50.jpg" onclick="openLBStory(this.src)">
+                <img src="bild51.jpg" onclick="openLBStory(this.src)">
+                <img src="bild80.jpg" onclick="openLBStory(this.src)">
+                <img src="bild81.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Nächte in São Paulo</h3>
+                <p>Das Nachtleben in São Paulo ist legendär. Interessanterweise habe ich dort sehr viele andere Touristen getroffen, überraschend viele kamen sogar aus Deutschland. Wir hatten fantastische Nächte in den Clubs der Stadt.</p>
+            </div>
+        </div>
+
+        <div class="story-row even">
+            <div class="story-images images-4">
+                <img src="bild53.jpg" onclick="openLBStory(this.src)">
+                <img src="bild82.jpg" onclick="openLBStory(this.src)">
+                <img src="bild83.jpg" onclick="openLBStory(this.src)">
+                <img src="bild84.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Street Art</h3>
+                <p>São Paulo ist eine Galerie unter freiem Himmel. Die Street Art dort ist Weltklasse – riesige Murals und kreative Graffitis prägen das gesamte Stadtbild und erzählen eigene Geschichten.</p>
+            </div>
+        </div>
+
+        <div class="story-row odd">
+            <div class="story-images images-4">
+                <img src="bild91.jpeg" onclick="openLBStory(this.src)">
+                <img src="bild95.jpg" onclick="openLBStory(this.src)">
+                <img src="bild98.jpg" onclick="openLBStory(this.src)">
+                <img src="bild99.jpg" onclick="openLBStory(this.src)">
+            </div>
+            <div class="story-text">
+                <h3>Rückflug</h3>
+                <p>Alles Schöne geht einmal zu Ende. Mit einem Koffer voller Erinnerungen und einer Kamera voller Bilder trat ich den Rückflug an. Brasilien 2018 wird immer einen besonderen Platz in meinem Herzen haben.</p>
+            </div>
+        </div>
+
+        <div style="height: 60vh; background: url('bild100.jpg') center/cover fixed;"></div>
+    </div>
+
+    <div id="lightbox">
+        <span class="close-x" onclick="closeLB()">✕</span>
+        <button id="prev-arrow" class="arrow" onclick="prevImage()">&#10094;</button>
+        <button id="next-arrow" class="arrow" onclick="nextImage()">&#10095;</button>
+        <div id="lightbox-container" onwheel="zoom(event)">
+            <img id="lightbox-img" src="">
+        </div>
+    </div>
+
+    <script>
+        const gridData = {
+            'wien': { title: 'Wien', images: ['bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg', 'bild5.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 'bild17.jpg', 'bild18.jpg', 'DSC01362.jpg', 'DSC01402.jpg', 'DSC01412.jpg', 'DJI_0081.jpg', 'bild20.jpg'] },
+            'natur': { title: 'Natur', images: ['bild21.jpg', 'bild22.jpg', 'bild23.jpg', 'bild24.jpg', 'bild26.jpg', 'bild29.jpg', 'bild31.jpg', 'bild32.jpg', 'bild33.jpg', 'bild34.jpg'] },
+            'brasilien': { title: 'Brasilien 2018', images: ['bild35.jpg', 'bild36.jpg', 'bild39.jpg', 'bild37.jpg', 'bild66.jpg', 'bild67.jpg', 'bild68.jpg', 'bild38.jpg', 'bild65.jpg', 'bild69.jpg', 'bild70.jpg', 'bild40.jpg', 'bild41.jpg', 'bild71.jpg', 'bild72.jpg', 'bild58.jpg', 'bild59.jpg', 'bild60.jpg', 'bild61.jpg', 'bild62.jpg', 'bild63.jpg', 'bild64.jpg', 'bild42.jpg', 'bild43.jpg', 'bild44.jpg', 'bild73.jpg', 'bild45.jpg', 'bild46.jpg', 'bild74.jpg', 'bild75.jpg', 'bild47.jpg', 'bild48.jpg', 'bild76.jpg', 'bild77.jpg', 'bild50.jpg', 'bild51.jpg', 'bild80.jpg', 'bild81.jpg', 'bild53.jpg', 'bild82.jpg', 'bild83.jpg', 'bild84.jpg', 'bild91.jpeg', 'bild95.jpg', 'bild98.jpg', 'bild99.jpg'] },
+            'trip': { title: 'Europe Trip 2018', images: ['bild101.jpg', 'bild102.jpg', 'bild103.jpg', 'bild104.jpg', 'bild105.jpg', 'bild106.jpg', 'bild107.jpg', '20181124_210652.jpg', '20181125_133133.jpg', '20181125_190630.jpg', '20181125_193224.jpg', '20181126_140441.jpg', '20181126_140937.jpg', '20181126_142246.jpg', '20181126_142931.jpg', '20181126_153344.jpg', '20181126_171053.jpg', '20181126_171923.jpg', '20181126_202005(0).jpg', '20181127_134826.jpg', '20181127_134838.jpg', '20181127_135549.jpg', '20181127_135835.jpg', '20181127_135937.jpg', '20181127_140536.jpg', '20181127_141149.jpg', '20181127_154341.jpg', '20181127_210159.jpg', '20181127_212657.jpg', '20181128_152227.jpg', '20181130_152056.jpg', '20181130_152147.jpg', '20181202_124542.jpg', '20181202_151727.jpg', '20181202_151739.jpg', '20181203_005709.jpg', '20181203_122215.jpg', '20181203_122508.jpg', '20181203_122851.jpg', '20181203_122905.jpg', '20181203_123139.jpg', '20181203_130154.jpg', '20181203_154221.jpg', '20181203_160645.jpg', '20181203_160650.jpg', '20181203_160905.jpg', '20181203_235523.jpg', '20181204_000208.jpg', '20181205_163948.jpg', '20181205_164115.jpg', '20181205_173615.jpg', '20181206_140421.jpg', '20181206_140425.jpg', '20181206_140752.jpg', '20181206_141959.jpg', '20181206_142431.jpg', '20181206_153636.jpg', '20181207_135410.jpg', '20181208_113709.jpg', '20181208_121344.jpg', '20181208_121824.jpg', '20181208_122938.jpg', '20181208_123001.jpg', '20181208_145739.jpg', '20181209_113927.jpg', '20181209_213003.jpg', '20181210_144522.jpg', '20181213_093227.jpg', '20181213_094428.jpg', '20181213_124928.jpg', '20181213_131358.jpg', '20181213_172359.jpg', '20181213_172411.jpg', '20181213_185617.jpg', '20181213_185625.jpg', '20181214_005903.jpg', '20181214_082702.jpg', '20181214_124730.jpg', '20181214_124735.jpg', '20181214_125043.jpg', '20181214_125613.jpg', '20181214_134937.jpg', '20181214_165459.jpg', '20181214_165521.jpg', '20181214_172554.jpg', '20181214_172600.jpg', '20181214_173806.jpg', '20181214_174430.jpg', '20181217_222646.jpg', '20181218_172337.jpg', '20181218_182125.jpg', 'IMG-20181122-WA0002.jpg', 'IMG-20181125-WA0000.jpg', 'IMG-20181127-WA0000.jpg', 'IMG-20181204-WA0001.jpg', 'IMG-20181215-WA0012.jpg'] }
+        };
+
+        const backBtn = document.getElementById('global-back-btn');
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        let scale = 1;
+        let panX = 0;
+        let panY = 0;
+        let isDragging = false;
+        let startX, startY;
+        let currentAlbum = '';
+        let currentIndex = 0;
+        let baseWidth = 0, baseHeight = 0, containerWidth = 0, containerHeight = 0, maxPanX = 0, maxPanY = 0;
+
+        function showHomeScreen() {
+            document.getElementById('album-view-section').style.display = 'block';
+            document.getElementById('grid-gallery-section').style.display = 'none';
+            document.getElementById('brasilien-story-section').style.display = 'none';
+            backBtn.style.display = 'none';
+        }
+
+        function openGrid(id) {
+            document.getElementById('gallery-title').innerText = gridData[id].title;
+            const content = document.getElementById('gallery-content');
+            content.innerHTML = '';
+            gridData[id].images.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.onclick = () => openLB(id, index);
+                content.appendChild(img);
+            });
+            document.getElementById('album-view-section').style.display = 'none';
+            document.getElementById('grid-gallery-section').style.display = 'block';
+            backBtn.style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function openBrasilien() {
+            document.getElementById('album-view-section').style.display = 'none';
+            document.getElementById('brasilien-story-section').style.display = 'block';
+            backBtn.style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function openLB(albumId, index) {
+            currentAlbum = albumId;
+            currentIndex = index;
+            lb.style.display = 'flex';
+            lbImg.src = gridData[albumId].images[index];
+            lbImg.onload = () => {
+                baseWidth = lbImg.offsetWidth;
+                baseHeight = lbImg.offsetHeight;
+                containerWidth = lbImg.parentElement.offsetWidth;
+                containerHeight = lbImg.parentElement.offsetHeight;
+                updatePanLimits();
+            };
+            scale = 1;
+            panX = 0;
+            panY = 0;
+            updateTransform();
+            lbImg.onclick = null;
+            document.getElementById('prev-arrow').style.display = 'block';
+            document.getElementById('next-arrow').style.display = 'block';
+        }
+
+        function openLBStory(src) {
+            const index = gridData['brasilien'].images.indexOf(src);
+            if (index !== -1) {
+                openLB('brasilien', index);
+                return;
+            }
+            currentAlbum = '';
+            lb.style.display = 'flex';
+            lbImg.src = src;
+            lbImg.onload = () => {
+                baseWidth = lbImg.offsetWidth;
+                baseHeight = lbImg.offsetHeight;
+                containerWidth = lbImg.parentElement.offsetWidth;
+                containerHeight = lbImg.parentElement.offsetHeight;
+                updatePanLimits();
+            };
+            scale = 1;
+            panX = 0;
+            panY = 0;
+            updateTransform();
+            lbImg.onclick = null;
+            document.getElementById('prev-arrow').style.display = 'none';
+            document.getElementById('next-arrow').style.display = 'none';
+        }
+
+        function updateTransform() {
+            lbImg.style.transform = `scale(${scale}) translate(${panX}px, ${panY}px)`;
+        }
+
+        function updatePanLimits() {
+            const scaledWidth = baseWidth * scale;
+            const scaledHeight = baseHeight * scale;
+            maxPanX = Math.max(0, (scaledWidth - containerWidth) / 2);
+            maxPanY = Math.max(0, (scaledHeight - containerHeight) / 2);
+        }
+
+        function nextImage() {
+            if (!currentAlbum) return;
+            currentIndex = (currentIndex + 1) % gridData[currentAlbum].images.length;
+            lbImg.src = gridData[currentAlbum].images[currentIndex];
+            lbImg.onload = updatePanLimits;
+        }
+
+        function prevImage() {
+            if (!currentAlbum) return;
+            currentIndex = (currentIndex - 1 + gridData[currentAlbum].images.length) % gridData[currentAlbum].images.length;
+            lbImg.src = gridData[currentAlbum].images[currentIndex];
+            lbImg.onload = updatePanLimits;
+        }
+
+        function closeLB() { 
+            lb.style.display = 'none'; 
+            currentAlbum = '';
+            document.getElementById('prev-arrow').style.display = 'none';
+            document.getElementById('next-arrow').style.display = 'none';
+        }
+
+        function zoom(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            scale = Math.min(Math.max(1, scale * delta), 5);
+            updatePanLimits();
+            panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+            panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+            updateTransform();
+        }
+
+        lb.onclick = (e) => { if(e.target === lb || e.target.id === 'lightbox-container') closeLB(); };
+
+        lbImg.onmousedown = (e) => {
+            if (scale > 1) {
+                isDragging = true;
+                startX = e.clientX - panX;
+                startY = e.clientY - panY;
+                e.preventDefault();
+            }
+        };
+
+        document.onmousemove = (e) => {
+            if (isDragging) {
+                panX = e.clientX - startX;
+                panY = e.clientY - startY;
+                panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+                panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+                updateTransform();
+            }
+        };
+
+        document.onmouseup = () => {
+            isDragging = false;
+        };
+
+        document.onkeydown = (e) => {
+            if (lb.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextImage();
+                else if (e.key === 'ArrowLeft') prevImage();
+                else if (e.key === 'Escape') closeLB();
+            }
+        };
+    </script>
+</body>
+</html>
