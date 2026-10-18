@@ -822,29 +822,7 @@
     }
 };
 
-        const imageOriginals = {};
-
-        document.onmousemove = (e) => {
-            if (isDragging) {
-                panX = e.clientX - startX;
-                panY = e.clientY - startY;
-                panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
-                panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
-                updateTransform();
-            }
-        };
-
-        document.onmouseup = () => {
-            isDragging = false;
-        };
-
-        document.onkeydown = (e) => {
-            if (lb.style.display === 'flex') {
-                if (e.key === 'ArrowRight') nextImage();
-                else if (e.key === 'ArrowLeft') prevImage();
-                else if (e.key === 'Escape') closeLB();
-            }
-        };
     </script>
+    <script src="gallery.js"></script>
 </body>
 </html>
