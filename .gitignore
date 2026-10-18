@@ -1,0 +1,5 @@
+.venv/
+
+# Keep the Gardasee originals locally; publish the optimized Web/ images.
+/Bilder/Gardasee Reise 2026/*.jpg
+/Bilder/Gardasee Reise 2026/*.ARW

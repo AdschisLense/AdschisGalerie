@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adschis Galerie | Brasilien 2018</title>
+    <title>Adschis Galerie | Reisen & Natur</title>
     <style>
         :root {
             --accent: #00d2df;
@@ -57,7 +57,7 @@
         
         #album-view-section { display: block; }
         #grid-gallery-section { display: none; padding-top: 100px; }
-        #brasilien-story-section { display: none; }
+        #brasilien-story-section, #gardasee-story-section { display: none; }
 
         .album-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .album-card {
@@ -73,7 +73,7 @@
         .grid-wrapper img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; }
 
         .story-hero {
-            height: 100vh; background: linear-gradient(rgba(0,0,0,0.2), #050608), url('bild35.jpg') center/cover fixed;
+            height: 100vh; background: linear-gradient(rgba(0,0,0,0.2), #050608), url('Bilder/Brasilien 2018/bild35.jpg') center/cover fixed;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
         .story-hero h2 { font-size: clamp(3rem, 12vw, 8rem); margin: 0; font-weight: 900; letter-spacing: -5px; }
@@ -85,11 +85,11 @@
         .story-row.even { flex-direction: row; }
         .story-row.odd { flex-direction: row-reverse; }
 
-        .story-text { flex: 1; }
+        .story-text { flex: 1; min-width: 0; }
         .story-text h3 { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
         .story-text p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); }
 
-        .story-images { flex: 1.2; display: grid; gap: 15px; }
+        .story-images { flex: 1.2; min-width: 0; display: grid; gap: 15px; }
         .story-images img { 
             width: 100%; border-radius: 20px; cursor: pointer; transition: 0.5s;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -100,91 +100,13 @@
         .images-3 img:nth-child(1) { grid-column: span 2; }
         .images-4 { grid-template-columns: 1fr 1fr; }
 
-        .new-gallery-section {
-            margin: 40px 0 80px;
-        }
-
-        .gallery-layout {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 28px;
-            align-items: stretch;
-        }
-
-        .gallery-images {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .gallery-images img {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.35);
-            transition: var(--transition);
-        }
-
-        .gallery-images img:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: var(--accent);
-        }
-
-        .gallery-text-card {
-            background: linear-gradient(135deg, rgba(0, 210, 223, 0.16), rgba(255, 255, 255, 0.03));
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 36px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 100%;
-        }
-
-        .eyebrow {
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            font-size: 0.8rem;
-            color: var(--accent);
-            margin: 0 0 12px;
-        }
-
-        .gallery-text-card h3 {
-            font-size: clamp(1.7rem, 3vw, 2.4rem);
-            margin: 0 0 16px;
-        }
-
-        .gallery-text-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.8;
-            margin: 0 0 20px;
-        }
-
-        .gallery-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .gallery-meta span {
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
-
         @media (max-width: 1000px) {
             .story-row { flex-direction: column !important; text-align: center; }
+            .story-images, .story-text { width: 100%; }
+            .story-hero h2 { letter-spacing: -2px; }
         }
 
-        @media (max-width: 900px) {
-            .gallery-layout { grid-template-columns: 1fr; }
-        }
+
 
         #lightbox {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98);
@@ -225,43 +147,26 @@
             <p>Travel & Nature Photography</p>
         </header>
         <div class="container">
-            <section class="new-gallery-section">
-                <div class="gallery-layout">
-                    <div class="gallery-images">
-                        <img src="IMG-20181215-WA0012.jpg" alt="Gardasee-Radreise Bild 1">
-                        <img src="20181218_182125.jpg" alt="Gardasee-Radreise Bild 2">
-                        <img src="20181214_174430.jpg" alt="Gardasee-Radreise Bild 3">
-                        <img src="20181213_185625.jpg" alt="Gardasee-Radreise Bild 4">
-                    </div>
-                    <div class="gallery-text-card">
-                        <p class="eyebrow">Neue Galerie</p>
-                        <h3>Radreise zum Gardasee 2026</h3>
-                        <p>Unsere Reise startete in Linz und führte uns über Frankenmarkt, Salzburg, Oberndorf in Tirol und Innsbruck bis nach Südtirol. Unterwegs begegneten uns Burgen, Flüsse, Apfelplantagen und viele andere Radreisende. Ein kleiner Zwischenfall auf dem Brenner – die Rettung eines Vogels auf der Straße – blieb besonders im Gedächtnis. Nach mehreren Nächten in der Natur kamen wir schließlich in Riva del Garda an und verbrachten dort zwei Tage in einem Airbnb. Von dort aus folgten wir die westliche Seite des Gardasees, bis wir in San Felice del Benaco und später in Malcesine ankamen. Die Strecke war oft wunderschön, manchmal fordernd, aber immer voller Atmosphäre.</p>
-                        <div class="gallery-meta">
-                            <span>4 Bilder</span>
-                            <span>Textfeld</span>
-                            <span>2026</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <div class="album-grid">
                 <div class="album-card" onclick="openGrid('wien')">
-                    <img src="bild1.jpg.jpg" alt="">
+                    <img src="Bilder/Wien/bild1.jpg.jpg" alt="">
                     <div class="album-info"><h3>Wien</h3><p>Frühling in der Stadt</p></div>
                 </div>
                 <div class="album-card" onclick="openGrid('natur')">
-                    <img src="bild33.jpg" alt="">
+                    <img src="Bilder/Natur/bild33.jpg" alt="">
                     <div class="album-info"><h3>Natur</h3><p>Stille Momente</p></div>
                 </div>
                 <div class="album-card" onclick="openGrid('trip')">
-                    <img src="bild101.jpg" alt="">
+                    <img src="Bilder/Europe Trip/bild101.jpg" alt="">
                     <div class="album-info"><h3>Europe Trip 2018</h3><p>Amsterdam → Madrid</p></div>
                 </div>
-                <div class="album-card" onclick="openBrasilien()">
-                    <img src="bild35.jpg" alt="">
+                <div class="album-card" onclick="openStory('brasilien')">
+                    <img src="Bilder/Brasilien 2018/bild35.jpg" alt="">
                     <div class="album-info"><h3>Brasilien 2018</h3><p>Eine Reise-Story</p></div>
+                </div>
+                <div class="album-card" onclick="openStory('gardasee')">
+                    <img src="Bilder/Gardasee Reise 2026/Web/DSC01482.jpg" alt="Radreise zum Gardasee 2026" loading="lazy">
+                    <div class="album-info"><h3>Gardasee 2026</h3><p>Linz → Gardasee · 268 Bilder</p></div>
                 </div>
             </div>
         </div>
@@ -280,9 +185,9 @@
 
         <div class="story-row even">
             <div class="story-images images-3">
-                <img src="bild35.jpg" onclick="openLBStory(this.src)">
-                <img src="bild36.jpg" onclick="openLBStory(this.src)">
-                <img src="bild39.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild35.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild36.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild39.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Der Aufbruch</h3>
@@ -292,10 +197,10 @@
 
         <div class="story-row odd">
             <div class="story-images images-4">
-                <img src="bild37.jpg" onclick="openLBStory(this.src)">
-                <img src="bild66.jpg" onclick="openLBStory(this.src)">
-                <img src="bild67.jpg" onclick="openLBStory(this.src)">
-                <img src="bild68.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild37.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild66.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild67.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild68.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Großstadtdschungel</h3>
@@ -305,10 +210,10 @@
 
         <div class="story-row even">
             <div class="story-images images-4">
-                <img src="bild38.jpg" onclick="openLBStory(this.src)">
-                <img src="bild65.jpg" onclick="openLBStory(this.src)">
-                <img src="bild69.jpg" onclick="openLBStory(this.src)">
-                <img src="bild70.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild38.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild65.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild69.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild70.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Salz auf der Haut</h3>
@@ -318,10 +223,10 @@
 
         <div class="story-row odd">
             <div class="story-images images-4">
-                <img src="bild40.jpg" onclick="openLBStory(this.src)">
-                <img src="bild41.jpg" onclick="openLBStory(this.src)">
-                <img src="bild71.jpg" onclick="openLBStory(this.src)">
-                <img src="bild72.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild40.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild41.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild71.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild72.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>In das Grüne</h3>
@@ -331,10 +236,10 @@
 
         <div class="story-row even">
             <div class="story-images images-4">
-                <img src="bild58.jpg" onclick="openLBStory(this.src)">
-                <img src="bild59.jpg" onclick="openLBStory(this.src)">
-                <img src="bild60.jpg" onclick="openLBStory(this.src)">
-                <img src="bild61.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild58.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild59.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild60.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild61.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Begegnungen</h3>
@@ -344,9 +249,9 @@
 
         <div class="story-row odd">
             <div class="story-images images-3">
-                <img src="bild62.jpg" onclick="openLBStory(this.src)">
-                <img src="bild63.jpg" onclick="openLBStory(this.src)">
-                <img src="bild64.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild62.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild63.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild64.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Lichtspiele</h3>
@@ -356,10 +261,10 @@
 
         <div class="story-row even">
             <div class="story-images images-4">
-                <img src="bild42.jpg" onclick="openLBStory(this.src)">
-                <img src="bild43.jpg" onclick="openLBStory(this.src)">
-                <img src="bild44.jpg" onclick="openLBStory(this.src)">
-                <img src="bild73.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild42.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild43.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild44.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild73.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Weitblick & Route</h3>
@@ -369,10 +274,10 @@
 
         <div class="story-row odd">
             <div class="story-images images-4">
-                <img src="bild45.jpg" onclick="openLBStory(this.src)">
-                <img src="bild46.jpg" onclick="openLBStory(this.src)">
-                <img src="bild74.jpg" onclick="openLBStory(this.src)">
-                <img src="bild75.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild45.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild46.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild74.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild75.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Beton-Dschungel São Paulo</h3>
@@ -382,10 +287,10 @@
 
         <div class="story-row even">
             <div class="story-images images-4">
-                <img src="bild47.jpg" onclick="openLBStory(this.src)">
-                <img src="bild48.jpg" onclick="openLBStory(this.src)">
-                <img src="bild76.jpg" onclick="openLBStory(this.src)">
-                <img src="bild77.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild47.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild48.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild76.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild77.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Inselleben in Ilhabela</h3>
@@ -395,10 +300,10 @@
 
         <div class="story-row odd">
             <div class="story-images images-4">
-                <img src="bild50.jpg" onclick="openLBStory(this.src)">
-                <img src="bild51.jpg" onclick="openLBStory(this.src)">
-                <img src="bild80.jpg" onclick="openLBStory(this.src)">
-                <img src="bild81.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild50.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild51.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild80.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild81.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Nächte in São Paulo</h3>
@@ -408,10 +313,10 @@
 
         <div class="story-row even">
             <div class="story-images images-4">
-                <img src="bild53.jpg" onclick="openLBStory(this.src)">
-                <img src="bild82.jpg" onclick="openLBStory(this.src)">
-                <img src="bild83.jpg" onclick="openLBStory(this.src)">
-                <img src="bild84.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild53.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild82.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild83.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild84.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Street Art</h3>
@@ -421,10 +326,10 @@
 
         <div class="story-row odd">
             <div class="story-images images-4">
-                <img src="bild91.jpeg" onclick="openLBStory(this.src)">
-                <img src="bild95.jpg" onclick="openLBStory(this.src)">
-                <img src="bild98.jpg" onclick="openLBStory(this.src)">
-                <img src="bild99.jpg" onclick="openLBStory(this.src)">
+                <img src="Bilder/Brasilien 2018/bild91.jpeg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild95.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild98.jpg" onclick="openLBStory(this)" loading="lazy">
+                <img src="Bilder/Brasilien 2018/bild99.jpg" onclick="openLBStory(this)" loading="lazy">
             </div>
             <div class="story-text">
                 <h3>Rückflug</h3>
@@ -432,7 +337,16 @@
             </div>
         </div>
 
-        <div style="height: 60vh; background: url('bild100.jpg') center/cover fixed;"></div>
+        <div style="height: 60vh; background: url('Bilder/Brasilien 2018/bild100.jpg') center/cover fixed;"></div>
+    </div>
+
+
+    <div id="gardasee-story-section">
+        <div class="story-hero" style="background-image: linear-gradient(rgba(0,0,0,0.2), #050608), url('Bilder/Gardasee Reise 2026/Web/DSC01482.jpg');">
+            <h2>Gardasee 2026</h2>
+            <p>MIT DEM RAD VON LINZ AN DEN GARDASEE</p>
+        </div>
+        <div id="gardasee-story-content"></div>
     </div>
 
     <div id="lightbox">
@@ -446,152 +360,469 @@
 
     <script>
         const gridData = {
-            'wien': { title: 'Wien', images: ['bild1.jpg.jpg', 'bild2.jpg.jpg', 'bild3.jpg', 'bild4.jpg', 'bild5.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 'bild17.jpg', 'bild18.jpg', 'DSC01362.jpg', 'DSC01402.jpg', 'DSC01412.jpg', 'DJI_0081.jpg', 'bild20.jpg'] },
-            'natur': { title: 'Natur', images: ['bild21.jpg', 'bild22.jpg', 'bild23.jpg', 'bild24.jpg', 'bild26.jpg', 'bild29.jpg', 'bild31.jpg', 'bild32.jpg', 'bild33.jpg', 'bild34.jpg'] },
-            'brasilien': { title: 'Brasilien 2018', images: ['bild35.jpg', 'bild36.jpg', 'bild39.jpg', 'bild37.jpg', 'bild66.jpg', 'bild67.jpg', 'bild68.jpg', 'bild38.jpg', 'bild65.jpg', 'bild69.jpg', 'bild70.jpg', 'bild40.jpg', 'bild41.jpg', 'bild71.jpg', 'bild72.jpg', 'bild58.jpg', 'bild59.jpg', 'bild60.jpg', 'bild61.jpg', 'bild62.jpg', 'bild63.jpg', 'bild64.jpg', 'bild42.jpg', 'bild43.jpg', 'bild44.jpg', 'bild73.jpg', 'bild45.jpg', 'bild46.jpg', 'bild74.jpg', 'bild75.jpg', 'bild47.jpg', 'bild48.jpg', 'bild76.jpg', 'bild77.jpg', 'bild50.jpg', 'bild51.jpg', 'bild80.jpg', 'bild81.jpg', 'bild53.jpg', 'bild82.jpg', 'bild83.jpg', 'bild84.jpg', 'bild91.jpeg', 'bild95.jpg', 'bild98.jpg', 'bild99.jpg'] },
-            'trip': { title: 'Europe Trip 2018', images: ['bild101.jpg', 'bild102.jpg', 'bild103.jpg', 'bild104.jpg', 'bild105.jpg', 'bild106.jpg', 'bild107.jpg', '20181124_210652.jpg', '20181125_133133.jpg', '20181125_190630.jpg', '20181125_193224.jpg', '20181126_140441.jpg', '20181126_140937.jpg', '20181126_142246.jpg', '20181126_142931.jpg', '20181126_153344.jpg', '20181126_171053.jpg', '20181126_171923.jpg', '20181126_202005(0).jpg', '20181127_134826.jpg', '20181127_134838.jpg', '20181127_135549.jpg', '20181127_135835.jpg', '20181127_135937.jpg', '20181127_140536.jpg', '20181127_141149.jpg', '20181127_154341.jpg', '20181127_210159.jpg', '20181127_212657.jpg', '20181128_152227.jpg', '20181130_152056.jpg', '20181130_152147.jpg', '20181202_124542.jpg', '20181202_151727.jpg', '20181202_151739.jpg', '20181203_005709.jpg', '20181203_122215.jpg', '20181203_122508.jpg', '20181203_122851.jpg', '20181203_122905.jpg', '20181203_123139.jpg', '20181203_130154.jpg', '20181203_154221.jpg', '20181203_160645.jpg', '20181203_160650.jpg', '20181203_160905.jpg', '20181203_235523.jpg', '20181204_000208.jpg', '20181205_163948.jpg', '20181205_164115.jpg', '20181205_173615.jpg', '20181206_140421.jpg', '20181206_140425.jpg', '20181206_140752.jpg', '20181206_141959.jpg', '20181206_142431.jpg', '20181206_153636.jpg', '20181207_135410.jpg', '20181208_113709.jpg', '20181208_121344.jpg', '20181208_121824.jpg', '20181208_122938.jpg', '20181208_123001.jpg', '20181208_145739.jpg', '20181209_113927.jpg', '20181209_213003.jpg', '20181210_144522.jpg', '20181213_093227.jpg', '20181213_094428.jpg', '20181213_124928.jpg', '20181213_131358.jpg', '20181213_172359.jpg', '20181213_172411.jpg', '20181213_185617.jpg', '20181213_185625.jpg', '20181214_005903.jpg', '20181214_082702.jpg', '20181214_124730.jpg', '20181214_124735.jpg', '20181214_125043.jpg', '20181214_125613.jpg', '20181214_134937.jpg', '20181214_165459.jpg', '20181214_165521.jpg', '20181214_172554.jpg', '20181214_172600.jpg', '20181214_173806.jpg', '20181214_174430.jpg', '20181217_222646.jpg', '20181218_172337.jpg', '20181218_182125.jpg', 'IMG-20181122-WA0002.jpg', 'IMG-20181125-WA0000.jpg', 'IMG-20181127-WA0000.jpg', 'IMG-20181204-WA0001.jpg', 'IMG-20181215-WA0012.jpg'] }
-        };
+    "wien": {
+        "title": "Wien",
+        "images": [
+            "Bilder/Wien/bild1.jpg.jpg",
+            "Bilder/Wien/bild2.jpg.jpg",
+            "Bilder/Wien/bild3.jpg",
+            "Bilder/Wien/bild4.jpg",
+            "Bilder/Wien/bild5.jpg",
+            "Bilder/Wien/bild14.jpg",
+            "Bilder/Wien/bild15.jpg",
+            "Bilder/Wien/bild16.jpg",
+            "Bilder/Wien/bild17.jpg",
+            "Bilder/Wien/bild18.jpg",
+            "Bilder/Wien/DSC01362.jpg",
+            "Bilder/Wien/DSC01402.jpg",
+            "Bilder/Wien/DSC01412.jpg",
+            "Bilder/Wien/DJI_0081.jpg",
+            "Bilder/Wien/bild20.jpg"
+        ]
+    },
+    "natur": {
+        "title": "Natur",
+        "images": [
+            "Bilder/Natur/bild21.jpg",
+            "Bilder/Natur/bild22.jpg",
+            "Bilder/Natur/bild23.jpg",
+            "Bilder/Natur/bild24.jpg",
+            "Bilder/Natur/bild26.jpg",
+            "Bilder/Natur/bild29.jpg",
+            "Bilder/Natur/bild31.jpg",
+            "Bilder/Natur/bild32.jpg",
+            "Bilder/Natur/bild33.jpg",
+            "Bilder/Natur/bild34.jpg"
+        ]
+    },
+    "brasilien": {
+        "title": "Brasilien 2018",
+        "images": [
+            "Bilder/Brasilien 2018/bild35.jpg",
+            "Bilder/Brasilien 2018/bild36.jpg",
+            "Bilder/Brasilien 2018/bild39.jpg",
+            "Bilder/Brasilien 2018/bild37.jpg",
+            "Bilder/Brasilien 2018/bild66.jpg",
+            "Bilder/Brasilien 2018/bild67.jpg",
+            "Bilder/Brasilien 2018/bild68.jpg",
+            "Bilder/Brasilien 2018/bild38.jpg",
+            "Bilder/Brasilien 2018/bild65.jpg",
+            "Bilder/Brasilien 2018/bild69.jpg",
+            "Bilder/Brasilien 2018/bild70.jpg",
+            "Bilder/Brasilien 2018/bild40.jpg",
+            "Bilder/Brasilien 2018/bild41.jpg",
+            "Bilder/Brasilien 2018/bild71.jpg",
+            "Bilder/Brasilien 2018/bild72.jpg",
+            "Bilder/Brasilien 2018/bild58.jpg",
+            "Bilder/Brasilien 2018/bild59.jpg",
+            "Bilder/Brasilien 2018/bild60.jpg",
+            "Bilder/Brasilien 2018/bild61.jpg",
+            "Bilder/Brasilien 2018/bild62.jpg",
+            "Bilder/Brasilien 2018/bild63.jpg",
+            "Bilder/Brasilien 2018/bild64.jpg",
+            "Bilder/Brasilien 2018/bild42.jpg",
+            "Bilder/Brasilien 2018/bild43.jpg",
+            "Bilder/Brasilien 2018/bild44.jpg",
+            "Bilder/Brasilien 2018/bild73.jpg",
+            "Bilder/Brasilien 2018/bild45.jpg",
+            "Bilder/Brasilien 2018/bild46.jpg",
+            "Bilder/Brasilien 2018/bild74.jpg",
+            "Bilder/Brasilien 2018/bild75.jpg",
+            "Bilder/Brasilien 2018/bild47.jpg",
+            "Bilder/Brasilien 2018/bild48.jpg",
+            "Bilder/Brasilien 2018/bild76.jpg",
+            "Bilder/Brasilien 2018/bild77.jpg",
+            "Bilder/Brasilien 2018/bild50.jpg",
+            "Bilder/Brasilien 2018/bild51.jpg",
+            "Bilder/Brasilien 2018/bild80.jpg",
+            "Bilder/Brasilien 2018/bild81.jpg",
+            "Bilder/Brasilien 2018/bild53.jpg",
+            "Bilder/Brasilien 2018/bild82.jpg",
+            "Bilder/Brasilien 2018/bild83.jpg",
+            "Bilder/Brasilien 2018/bild84.jpg",
+            "Bilder/Brasilien 2018/bild91.jpeg",
+            "Bilder/Brasilien 2018/bild95.jpg",
+            "Bilder/Brasilien 2018/bild98.jpg",
+            "Bilder/Brasilien 2018/bild99.jpg"
+        ]
+    },
+    "trip": {
+        "title": "Europe Trip 2018",
+        "images": [
+            "Bilder/Europe Trip/bild101.jpg",
+            "Bilder/Europe Trip/bild102.jpg",
+            "Bilder/Europe Trip/bild103.jpg",
+            "Bilder/Europe Trip/bild104.jpg",
+            "Bilder/Europe Trip/bild105.jpg",
+            "Bilder/Europe Trip/bild106.jpg",
+            "Bilder/Europe Trip/bild107.jpg",
+            "Bilder/Europe Trip/20181124_210652.jpg",
+            "Bilder/Europe Trip/20181125_133133.jpg",
+            "Bilder/Europe Trip/20181125_190630.jpg",
+            "Bilder/Europe Trip/20181125_193224.jpg",
+            "Bilder/Europe Trip/20181126_140441.jpg",
+            "Bilder/Europe Trip/20181126_140937.jpg",
+            "Bilder/Europe Trip/20181126_142246.jpg",
+            "Bilder/Europe Trip/20181126_142931.jpg",
+            "Bilder/Europe Trip/20181126_153344.jpg",
+            "Bilder/Europe Trip/20181126_171053.jpg",
+            "Bilder/Europe Trip/20181126_171923.jpg",
+            "Bilder/Europe Trip/20181126_202005(0).jpg",
+            "Bilder/Europe Trip/20181127_134826.jpg",
+            "Bilder/Europe Trip/20181127_134838.jpg",
+            "Bilder/Europe Trip/20181127_135549.jpg",
+            "Bilder/Europe Trip/20181127_135835.jpg",
+            "Bilder/Europe Trip/20181127_135937.jpg",
+            "Bilder/Europe Trip/20181127_140536.jpg",
+            "Bilder/Europe Trip/20181127_141149.jpg",
+            "Bilder/Europe Trip/20181127_154341.jpg",
+            "Bilder/Europe Trip/20181127_210159.jpg",
+            "Bilder/Europe Trip/20181127_212657.jpg",
+            "Bilder/Europe Trip/20181128_152227.jpg",
+            "Bilder/Europe Trip/20181130_152056.jpg",
+            "Bilder/Europe Trip/20181130_152147.jpg",
+            "Bilder/Europe Trip/20181202_124542.jpg",
+            "Bilder/Europe Trip/20181202_151727.jpg",
+            "Bilder/Europe Trip/20181202_151739.jpg",
+            "Bilder/Europe Trip/20181203_005709.jpg",
+            "Bilder/Europe Trip/20181203_122215.jpg",
+            "Bilder/Europe Trip/20181203_122508.jpg",
+            "Bilder/Europe Trip/20181203_122851.jpg",
+            "Bilder/Europe Trip/20181203_122905.jpg",
+            "Bilder/Europe Trip/20181203_123139.jpg",
+            "Bilder/Europe Trip/20181203_130154.jpg",
+            "Bilder/Europe Trip/20181203_154221.jpg",
+            "Bilder/Europe Trip/20181203_160645.jpg",
+            "Bilder/Europe Trip/20181203_160650.jpg",
+            "Bilder/Europe Trip/20181203_160905.jpg",
+            "Bilder/Europe Trip/20181203_235523.jpg",
+            "Bilder/Europe Trip/20181204_000208.jpg",
+            "Bilder/Europe Trip/20181205_163948.jpg",
+            "Bilder/Europe Trip/20181205_164115.jpg",
+            "Bilder/Europe Trip/20181205_173615.jpg",
+            "Bilder/Europe Trip/20181206_140421.jpg",
+            "Bilder/Europe Trip/20181206_140425.jpg",
+            "Bilder/Europe Trip/20181206_140752.jpg",
+            "Bilder/Europe Trip/20181206_141959.jpg",
+            "Bilder/Europe Trip/20181206_142431.jpg",
+            "Bilder/Europe Trip/20181206_153636.jpg",
+            "Bilder/Europe Trip/20181207_135410.jpg",
+            "Bilder/Europe Trip/20181208_113709.jpg",
+            "Bilder/Europe Trip/20181208_121344.jpg",
+            "Bilder/Europe Trip/20181208_121824.jpg",
+            "Bilder/Europe Trip/20181208_122938.jpg",
+            "Bilder/Europe Trip/20181208_123001.jpg",
+            "Bilder/Europe Trip/20181208_145739.jpg",
+            "Bilder/Europe Trip/20181209_113927.jpg",
+            "Bilder/Europe Trip/20181209_213003.jpg",
+            "Bilder/Europe Trip/20181210_144522.jpg",
+            "Bilder/Europe Trip/20181213_093227.jpg",
+            "Bilder/Europe Trip/20181213_094428.jpg",
+            "Bilder/Europe Trip/20181213_124928.jpg",
+            "Bilder/Europe Trip/20181213_131358.jpg",
+            "Bilder/Europe Trip/20181213_172359.jpg",
+            "Bilder/Europe Trip/20181213_172411.jpg",
+            "Bilder/Europe Trip/20181213_185617.jpg",
+            "Bilder/Europe Trip/20181213_185625.jpg",
+            "Bilder/Europe Trip/20181214_005903.jpg",
+            "Bilder/Europe Trip/20181214_082702.jpg",
+            "Bilder/Europe Trip/20181214_124730.jpg",
+            "Bilder/Europe Trip/20181214_124735.jpg",
+            "Bilder/Europe Trip/20181214_125043.jpg",
+            "Bilder/Europe Trip/20181214_125613.jpg",
+            "Bilder/Europe Trip/20181214_134937.jpg",
+            "Bilder/Europe Trip/20181214_165459.jpg",
+            "Bilder/Europe Trip/20181214_165521.jpg",
+            "Bilder/Europe Trip/20181214_172554.jpg",
+            "Bilder/Europe Trip/20181214_172600.jpg",
+            "Bilder/Europe Trip/20181214_173806.jpg",
+            "Bilder/Europe Trip/20181214_174430.jpg",
+            "Bilder/Europe Trip/20181217_222646.jpg",
+            "Bilder/Europe Trip/20181218_172337.jpg",
+            "Bilder/Europe Trip/20181218_182125.jpg",
+            "Bilder/Europe Trip/IMG-20181122-WA0002.jpg",
+            "Bilder/Europe Trip/IMG-20181125-WA0000.jpg",
+            "Bilder/Europe Trip/IMG-20181127-WA0000.jpg",
+            "Bilder/Europe Trip/IMG-20181204-WA0001.jpg",
+            "Bilder/Europe Trip/IMG-20181215-WA0012.jpg"
+        ]
+    },
+    "gardasee": {
+        "title": "Radreise zum Gardasee 2026",
+        "images": [
+            "Bilder/Gardasee Reise 2026/Web/DSC01482.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01486.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01487.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01488.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01489.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01491.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01492.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01495.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01497.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01499.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01501.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01502.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01503.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01504.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01505.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01507.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01508.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01510.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01511.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01512.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01514.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01515.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01517.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01518.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01519.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01520.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01521.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01522.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01523.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01525.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01526.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01527.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01528.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01530.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01531.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01532.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01533.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01534.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01535.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01536.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01537.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01538.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01539.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01541.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01543.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01544.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01545.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01548.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01549.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01554.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01555.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01559.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01562.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01564.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01570.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01573.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01576.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01577.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01578.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01580.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01582.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01583.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01584.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01585.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01586.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01587.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01588.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01590.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01592.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01593.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01594.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01595.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01596.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01597.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01598.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01599.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01604.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01605.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01606.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01608.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01609.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01610.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01614.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01615.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01616.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01617.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01618.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01619.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01620.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01623.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01624.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01625.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01626.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01627.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01628.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01630.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01631.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01632.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01634.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01635.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01636.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01637.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01639.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01640.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01641.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01642.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01643.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01644.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01645.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01646.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01648.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01649.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01650.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01651.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01652.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01653.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01654.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01655.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01656.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01657.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01658.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01659.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01660.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01661.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01662.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01663.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01664.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01665.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01666.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01667.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01668.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01669.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01670.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01672.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01673.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01674.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01675.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01676.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01677.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01678.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01679.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01680.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01681.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01682.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01683.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01684.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01685.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01686.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01687.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01688.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01689.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01690.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01692.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01696.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01697.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01698.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01700.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01701.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01702.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01703.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01704.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01705.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01706.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01707.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01708.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01709.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01710.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01712.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01714.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01715.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01716.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01718.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01720.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01721.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01722.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01723.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01725.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01726.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01727.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01728.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01729.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01730.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01731.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01732.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01733.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01734.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01735.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01737.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01739.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01742.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01743.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01746.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01748.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01749.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01751.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01753.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01755.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01756.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01761.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01762.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01763.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01767.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01768.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01770.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01771.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01773.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01777.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01778.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01781.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01782.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01783.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01784.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01786.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01787.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01789.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01790.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01791.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01792.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01793.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01795.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01796.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01798.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01800.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01822.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01830.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01832.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01834.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01835.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01837.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01839.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01843.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01845.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01846.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01847.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01849.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01851.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01852.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01854.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01858.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01859.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01862.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01863.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01865.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01866.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01867.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01868.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01870.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01871.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01874.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01875.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01876.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01877.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01878.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01879.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01881.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01883.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01884.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01886.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01888.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01889.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01890.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01891.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01894.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01896.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01897.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01898.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01900.jpg",
+            "Bilder/Gardasee Reise 2026/Web/DSC01902.jpg"
+        ]
+    }
+};
 
-        const backBtn = document.getElementById('global-back-btn');
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightbox-img');
-        let scale = 1;
-        let panX = 0;
-        let panY = 0;
-        let isDragging = false;
-        let startX, startY;
-        let currentAlbum = '';
-        let currentIndex = 0;
-        let baseWidth = 0, baseHeight = 0, containerWidth = 0, containerHeight = 0, maxPanX = 0, maxPanY = 0;
-
-        function showHomeScreen() {
-            document.getElementById('album-view-section').style.display = 'block';
-            document.getElementById('grid-gallery-section').style.display = 'none';
-            document.getElementById('brasilien-story-section').style.display = 'none';
-            backBtn.style.display = 'none';
-        }
-
-        function openGrid(id) {
-            document.getElementById('gallery-title').innerText = gridData[id].title;
-            const content = document.getElementById('gallery-content');
-            content.innerHTML = '';
-            gridData[id].images.forEach((src, index) => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.onclick = () => openLB(id, index);
-                content.appendChild(img);
-            });
-            document.getElementById('album-view-section').style.display = 'none';
-            document.getElementById('grid-gallery-section').style.display = 'block';
-            backBtn.style.display = 'block';
-            window.scrollTo(0,0);
-        }
-
-        function openBrasilien() {
-            document.getElementById('album-view-section').style.display = 'none';
-            document.getElementById('brasilien-story-section').style.display = 'block';
-            backBtn.style.display = 'block';
-            window.scrollTo(0,0);
-        }
-
-        function openLB(albumId, index) {
-            currentAlbum = albumId;
-            currentIndex = index;
-            lb.style.display = 'flex';
-            lbImg.src = gridData[albumId].images[index];
-            lbImg.onload = () => {
-                baseWidth = lbImg.offsetWidth;
-                baseHeight = lbImg.offsetHeight;
-                containerWidth = lbImg.parentElement.offsetWidth;
-                containerHeight = lbImg.parentElement.offsetHeight;
-                updatePanLimits();
-            };
-            scale = 1;
-            panX = 0;
-            panY = 0;
-            updateTransform();
-            lbImg.onclick = null;
-            document.getElementById('prev-arrow').style.display = 'block';
-            document.getElementById('next-arrow').style.display = 'block';
-        }
-
-        function openLBStory(src) {
-            const index = gridData['brasilien'].images.indexOf(src);
-            if (index !== -1) {
-                openLB('brasilien', index);
-                return;
-            }
-            currentAlbum = '';
-            lb.style.display = 'flex';
-            lbImg.src = src;
-            lbImg.onload = () => {
-                baseWidth = lbImg.offsetWidth;
-                baseHeight = lbImg.offsetHeight;
-                containerWidth = lbImg.parentElement.offsetWidth;
-                containerHeight = lbImg.parentElement.offsetHeight;
-                updatePanLimits();
-            };
-            scale = 1;
-            panX = 0;
-            panY = 0;
-            updateTransform();
-            lbImg.onclick = null;
-            document.getElementById('prev-arrow').style.display = 'none';
-            document.getElementById('next-arrow').style.display = 'none';
-        }
-
-        function updateTransform() {
-            lbImg.style.transform = `scale(${scale}) translate(${panX}px, ${panY}px)`;
-        }
-
-        function updatePanLimits() {
-            const scaledWidth = baseWidth * scale;
-            const scaledHeight = baseHeight * scale;
-            maxPanX = Math.max(0, (scaledWidth - containerWidth) / 2);
-            maxPanY = Math.max(0, (scaledHeight - containerHeight) / 2);
-        }
-
-        function nextImage() {
-            if (!currentAlbum) return;
-            currentIndex = (currentIndex + 1) % gridData[currentAlbum].images.length;
-            lbImg.src = gridData[currentAlbum].images[currentIndex];
-            lbImg.onload = updatePanLimits;
-        }
-
-        function prevImage() {
-            if (!currentAlbum) return;
-            currentIndex = (currentIndex - 1 + gridData[currentAlbum].images.length) % gridData[currentAlbum].images.length;
-            lbImg.src = gridData[currentAlbum].images[currentIndex];
-            lbImg.onload = updatePanLimits;
-        }
-
-        function closeLB() { 
-            lb.style.display = 'none'; 
-            currentAlbum = '';
-            document.getElementById('prev-arrow').style.display = 'none';
-            document.getElementById('next-arrow').style.display = 'none';
-        }
-
-        function zoom(e) {
-            e.preventDefault();
-            const delta = e.deltaY > 0 ? 0.9 : 1.1;
-            scale = Math.min(Math.max(1, scale * delta), 5);
-            updatePanLimits();
-            panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
-            panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
-            updateTransform();
-        }
-
-        lb.onclick = (e) => { if(e.target === lb || e.target.id === 'lightbox-container') closeLB(); };
-
-        lbImg.onmousedown = (e) => {
-            if (scale > 1) {
-                isDragging = true;
-                startX = e.clientX - panX;
-                startY = e.clientY - panY;
-                e.preventDefault();
-            }
-        };
+        const imageOriginals = {};
 
         document.onmousemove = (e) => {
             if (isDragging) {
